@@ -1,6 +1,6 @@
 {
   "name": "react-native-general-calendars",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Native Calendar Components",
   "main": "src/index.js",
   "scripts": {
@@ -42,7 +42,7 @@
     "moment": "^2.21.0",
     "moment-jalaali": "^0.7.2",
     "prop-types": "~15.6.0",
-    "react-native-common": "^0.15.0"
+    "react-native-common": "^0.16.0"
   },
   "devDependencies": {
     "babel-cli": "~6.26.0",
