@@ -1,0 +1,81 @@
+{
+  "name": "react-native-common",
+  "version": "1.0.0",
+  "description": "React Native common components",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "watchman watch-del-all && react-native start",
+    "ios": "react-native run-ios --simulator=\"iPhone 8\"",
+    "android": "react-native run-android",
+    "pretest": "npm run lint",
+    "lint": "eslint src -c .eslintrc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "files": [
+    "src/"
+  ],
+  "keyword": [
+    "react",
+    "react-native",
+    "react-native-common",
+    "react-native-general-calendars",
+    "calendars",
+    "moment",
+    "gregorian",
+    "jalaali",
+    "persian",
+    "moment",
+    "ios",
+    "android"
+  ],
+  "author": {
+    "name": "Reza Ghorbani",
+    "email": "r.ghorbani.f@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rghorbani/react-native-common/issues"
+  },
+  "dependencies": {
+    "moment": "^2.21.0",
+    "moment-jalaali": "^0.7.2",
+    "prop-types": "~15.6.0",
+    "react-native-common": "^0.15.0"
+  },
+  "devDependencies": {
+    "babel-cli": "~6.26.0",
+    "babel-eslint": "~8.2.1",
+    "babel-jest": "~22.1.0",
+    "babel-preset-react": "~6.24.1",
+    "babel-preset-react-native": "~4.0.0",
+    "eslint": "~4.16.0",
+    "eslint-plugin-react": "~7.5.1",
+    "eslint-plugin-react-native": "~3.2.1",
+    "jest": "~22.1.4",
+    "react": "16.0.0",
+    "react-native": "0.51.0"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "jest": {
+    "preset": "react-native",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "homepage": "https://github.com/rghorbani/react-native-common",
+  "contributors": [
+    {
+      "name": "rghorbani",
+      "email": "r.ghorbani.f@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rghorbani/react-native-common"
+  }
+}
