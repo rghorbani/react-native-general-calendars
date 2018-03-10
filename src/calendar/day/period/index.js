@@ -31,7 +31,7 @@ class Day extends React.Component {
   constructor(props) {
     super(props);
     this.theme = {...defaultStyle, ...(props.theme || {})};
-    this.style = styleConstructor(props.theme);
+    this.style = styleConstructor(props.theme, props);
     this.markingStyle = this.getDrawingStyle(props.marking || []);
     this.onDayPress = this.onDayPress.bind(this);
   }
@@ -208,7 +208,14 @@ const STYLESHEET_ID = 'stylesheet.day.period';
 
 const FILLER_HEIGHT = 34;
 
-function styleConstructor(theme = {}) {
+function styleConstructor(theme = {}, {rtl, type}) {
+  if (rtl === undefined) {
+    if (type === 'jalaali') {
+      rtl = true;
+    } else {
+      rtl = false;
+    }
+  }
   const appStyle = {...defaultStyle, ...theme};
   return StyleSheet.create({
     wrapper: {
@@ -226,7 +233,7 @@ function styleConstructor(theme = {}) {
     fillers: {
       position: 'absolute',
       height: FILLER_HEIGHT,
-      flexDirection: 'row',
+      flexDirection: rtl ? 'row-reverse' : 'row',
       left: 0,
       right: 0
     },

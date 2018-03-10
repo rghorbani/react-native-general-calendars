@@ -49,7 +49,7 @@ class Calendar extends React.Component {
     // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
     firstDay: PropTypes.number,
 
-    // Date marking style [simple/period]. Default = 'simple'
+    // Date marking style [simple/multi-dot/period]. Default = 'simple'
     markingType: PropTypes.string,
 
     // Hide month navigation arrows. Default = false
@@ -211,6 +211,7 @@ class Calendar extends React.Component {
           state={state}
           type={this.props.type}
           theme={this.props.theme}
+          rtl={this.props.rtl}
           onPress={this.pressDay}
           date={xdateToData(this.props.type, day)}
           marking={this.getDateMarking(day)}
@@ -290,6 +291,7 @@ class Calendar extends React.Component {
         <CalendarHeader
           type={this.props.type}
           theme={this.props.theme}
+          rtl={this.props.rtl}
           hideArrows={this.props.hideArrows}
           month={this.state.currentMonth}
           addMonth={this.addMonth}
