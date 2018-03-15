@@ -1,7 +1,7 @@
 {
   "name": "react-native-general-calendars",
-  "version": "1.0.2",
-  "description": "React Native Calendar Components",
+  "version": "1.0.3",
+  "description": "React Native Calendar Components With support of Gregorian & Jalaali",
   "main": "src/index.js",
   "scripts": {
     "start": "watchman watch-del-all && react-native start",
@@ -36,7 +36,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rghorbani/react-native-common/issues"
+    "url": "https://github.com/rghorbani/react-native-general-calendars/issues"
   },
   "dependencies": {
     "moment": "^2.21.0",
@@ -67,7 +67,7 @@
       "/node_modules/"
     ]
   },
-  "homepage": "https://github.com/rghorbani/react-native-common",
+  "homepage": "https://github.com/rghorbani/react-native-general-calendars",
   "contributors": [
     {
       "name": "rghorbani",
@@ -76,6 +76,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/rghorbani/react-native-common"
+    "url": "https://github.com/rghorbani/react-native-general-calendars"
   }
 }

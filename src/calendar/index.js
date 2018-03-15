@@ -251,7 +251,7 @@ class Calendar extends React.Component {
   }
 
   renderWeekNumber (weekNumber) {
-    return <Day key={`week-${weekNumber}`} type={this.props.type} theme={this.props.theme} state="disabled">{weekNumber}</Day>;
+    return <Day key={`week-${weekNumber}`} type={this.props.type} theme={this.props.theme} marking={{disableTouchEvent: true}} state="disabled">{weekNumber}</Day>;
   }
 
   renderWeek(days, id) {
