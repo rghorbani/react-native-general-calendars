@@ -6,24 +6,13 @@ This module includes various customizable react native calendar components.
 
 The package is both **Android** and **iOS** compatible.
 
-## Try it out
-
-You can run example module by performing these steps:
-
-```
-$ git clone git@github.com:rghorbani/react-native-general-calendars.git
-$ cd react-native-general-calendars/example
-$ npm install
-$ react-native run-ios
-```
-
-You can check example screens source code in [example module screens](https://github.com/rghorbani/react-native-general-calendars/tree/master/example)
-
 ## Installation
 
-```
-$ npm install --save react-native-general-calendars
-```
+`$ yarn add react-native-general-calendars`
+
+or
+
+`$ npm install react-native-general-calendars --save`
 
 The solution is implemented in JavaScript so no native module linking is required.
 
