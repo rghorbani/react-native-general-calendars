@@ -121,7 +121,7 @@ class CalendarHeader extends React.Component {
         <View style={this.style.header}>
           {leftArrow}
           <View style={{ flexDirection: 'row' }}>
-            <Text allowFontScaling={false} style={this.style.monthText}>
+            <Text allowFontScaling={false} style={this.style.monthText} accessibilityTraits="header">
               {this.props.month.format(this.props.monthFormat)}
             </Text>
             {indicator}
@@ -133,7 +133,7 @@ class CalendarHeader extends React.Component {
           <View style={this.style.week}>
             {this.props.weekNumbers && <Text allowFontScaling={false} style={this.style.dayHeader}></Text>}
             {weekDaysNames.map((day, idx) => (
-              <Text allowFontScaling={false} key={idx} style={this.style.dayHeader} numberOfLines={1}>{day}</Text>
+              <Text allowFontScaling={false} key={idx} accessible={false} style={this.style.dayHeader} numberOfLines={1}>{day}</Text>
             ))}
           </View>
         }

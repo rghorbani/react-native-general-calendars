@@ -1,6 +1,6 @@
 {
   "name": "react-native-general-calendars",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "React Native Calendar Components with support of Gregorian & Jalaali Calendars",
   "main": "src/index.js",
   "scripts": {
@@ -21,14 +21,16 @@
     "react-native",
     "react-native-common",
     "react-native-general-calendars",
-    "calendars",
+    "moment-jalaali",
     "moment",
+    "calendars",
     "gregorian",
     "jalaali",
+    "hijri",
     "persian",
-    "moment",
     "ios",
-    "android"
+    "android",
+    "windows"
   ],
   "author": {
     "name": "Reza Ghorbani",
@@ -42,7 +44,7 @@
     "moment": "^2.21.0",
     "moment-jalaali": "^0.7.2",
     "prop-types": "~15.6.0",
-    "react-native-common": "^0.16.0"
+    "react-native-common": "^0.17.2"
   },
   "devDependencies": {
     "babel-cli": "~6.26.0",
