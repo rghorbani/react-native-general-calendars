@@ -78,7 +78,7 @@ class CalendarHeader extends React.Component {
   onPressRight() {
     const {onPressArrowRight} = this.props;
     if (typeof onPressArrowRight === 'function') {
-      return onPressArrowRight(this.substractMonth);
+      return onPressArrowRight(this.addMonth);
     }
     return this.addMonth();
   }
