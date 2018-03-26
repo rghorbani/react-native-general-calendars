@@ -9,5 +9,6 @@
 
 module.exports = {
   get Calendar() { return require('./calendar'); },
+  get CalendarList() { return require('./calendar-list'); },
   get DatePicker() { return require('./datepicker'); },
 };

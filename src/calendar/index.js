@@ -93,7 +93,7 @@ class Calendar extends React.Component {
     this.style = styleConstructor(props.theme, props);
     let currentMonth;
     if (props.current) {
-      currentMonth = parseDate(this.props.type, props.current);
+      currentMonth = parseDate(props.type, props.current);
     } else {
       if (props.type === 'jalaali') {
         currentMonth = jMoment.utc();

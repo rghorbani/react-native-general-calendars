@@ -6,6 +6,7 @@
 
 'use strict';
 
+const Moment = require('moment');
 const jMoment = require('moment-jalaali');
 
 function padNumber(n) {
@@ -31,14 +32,14 @@ function parseDate(d) {
     return;
   } else if (d.timestamp) { // conventional data timestamp
     return jMoment.utc(d.timestamp);
-  } else if (d instanceof jMoment) { // moment
+  } else if (d instanceof Moment) { // moment
     return jMoment.utc(d.format('YYYY-MM-DD'));
   } else if (d.getTime) { // javascript date
     const dateString = d.getFullYear() + '-' + padNumber((d.getMonth() + 1)) + '-' + padNumber(d.getDate());
     return jMoment.utc(dateString);
   } else if (d.year) {
     const dateString = d.year + '-' + padNumber(d.month) + '-' + padNumber(d.day);
-    return jMoment.utc(dateString, 'jYYYY-jMM-jDD');
+    return jMoment.utc(dateString);
   } else if (d) { // timestamp number or date formatted as string TODO
     return jMoment.utc(d);
   }

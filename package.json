@@ -1,6 +1,6 @@
 {
   "name": "react-native-general-calendars",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "React Native Calendar Components with support of Gregorian & Jalaali Calendars",
   "main": "src/index.js",
   "scripts": {

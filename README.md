@@ -262,6 +262,30 @@ If you implement an awesome day component please make a PR so that other people 
 
 ### CalendarList
 
+<kbd>
+  <img src="https://github.com/rghorbani/react-native-general-calendars/blob/master/demo/calendar-list.gif?raw=true">
+</kbd>
+
+`<CalendarList />` is scrollable semi-infinite calendar composed of `<Calendar />` components. Currently it is possible to scroll 4 years back and 4 years to the future. All paramters that are available for `<Calendar />` are also available for this component. There are also some additional params that can be used:
+
+```javascript
+<CalendarList
+  // Callback which gets executed when visible months change in scroll view. Default = undefined
+  onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
+  // Max amount of months allowed to scroll to the past. Default = 50
+  pastScrollRange={50}
+  // Max amount of months allowed to scroll to the future. Default = 50
+  futureScrollRange={50}
+  // Enable or disable scrolling of calendar list
+  scrollEnabled={true}
+  // Enable or disable vertical scroll indicator. Default = false
+  showScrollIndicator={true}
+  ...calendarParams
+/>
+```
+
+### Agenda
+
 Coming soon
 
 ## Authors
