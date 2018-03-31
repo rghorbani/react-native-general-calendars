@@ -90,11 +90,10 @@ class CalendarList extends React.Component {
       openDate: date,
       initialized: false,
     };
-    this.lastScrollPosition = -1000;
 
+    this.getItemLayout = this.getItemLayout.bind(this);
     this.onViewableItemsChangedBound = this.onViewableItemsChanged.bind(this);
     this.renderCalendar = this.renderCalendar.bind(this);
-    this.getItemLayout = this.getItemLayout.bind(this);
   }
 
   scrollToDay(d, offset, animated) {

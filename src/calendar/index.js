@@ -143,7 +143,7 @@ class Calendar extends React.Component {
     });
   }
 
-  pressDay(date) {
+  _handleDayInteraction(date, interaction) {
     const day = parseDate(this.props.type, date);
     const minDate = parseDate(this.props.type, this.props.minDate);
     const maxDate = parseDate(this.props.type, this.props.maxDate);
@@ -152,33 +152,22 @@ class Calendar extends React.Component {
       if (shouldUpdateMonth) {
         this.updateMonth(day);
       }
-      if (this.props.onDayPress) {
+      if (interaction) {
         if (this.props.type === 'jalaali') {
-          this.props.onDayPress(gregorian.xdateToData(day), jalaali.xdateToData(day));
+          interaction(gregorian.xdateToData(day), jalaali.xdateToData(day));
         } else {
-          this.props.onDayPress(gregorian.xdateToData(day), gregorian.xdateToData(day));
+          interaction(gregorian.xdateToData(day), gregorian.xdateToData(day));
         }
       }
     }
   }
 
+  pressDay(date) {
+    this._handleDayInteraction(date, this.props.onDayPress);
+  }
+
   longPressDay(date) {
-    const day = parseDate(date);
-    const minDate = parseDate(this.props.type, this.props.minDate);
-    const maxDate = parseDate(this.props.type, this.props.maxDate);
-    if (!(minDate && !dateutils.isGTE(this.props.type, day, minDate)) && !(maxDate && !dateutils.isLTE(this.props.type, day, maxDate))) {
-      const shouldUpdateMonth = this.props.disableMonthChange === undefined || !this.props.disableMonthChange;
-      if (shouldUpdateMonth) {
-        this.updateMonth(day);
-      }
-      if (this.props.onDayLongPress) {
-        if (this.props.type === 'jalaali') {
-          this.props.onDayLongPress(gregorian.xdateToData(day), jalaali.xdateToData(day));
-        } else {
-          this.props.onDayLongPress(gregorian.xdateToData(day), gregorian.xdateToData(day));
-        }
-      }
-    }
+    this._handleDayInteraction(date, this.props.onDayLongPress);
   }
 
   addMonth(count) {
@@ -217,7 +206,7 @@ class Calendar extends React.Component {
       if (this.props.markingType === 'period') {
         dayComp = (<View key={id} style={{flex: 1}} />);
       } else {
-        dayComp = (<View key={id} style={this.style.hiddenExtraDays} />);
+        dayComp = (<View key={id} style={this.style.dayContainer} />);
       }
     } else {
       const DayComp = this.getDayComponent();
@@ -358,7 +347,7 @@ function styleConstructor(theme = {}, {rtl, type}) {
       flexDirection: rtl ? 'row-reverse' : 'row',
       justifyContent: 'space-around',
     },
-    hiddenExtraDays: {
+    dayContainer: {
       width: 32,
     },
     ...(theme[STYLESHEET_ID] || {})

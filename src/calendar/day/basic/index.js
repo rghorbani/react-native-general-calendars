@@ -129,7 +129,7 @@ function styleConstructor(theme = {}) {
       alignItems: 'center'
     },
     text: {
-      marginTop: 4,
+      marginTop: Platform.OS === 'android' ? 4 : 6,
       fontSize: appStyle.textDayFontSize,
       fontFamily: appStyle.textDayFontFamily,
       fontWeight: '300',
