@@ -23,6 +23,7 @@ class Day extends React.Component {
     marking: PropTypes.any,
 
     onPress: PropTypes.func,
+    onLongPress: PropTypes.func,
     date: PropTypes.object,
 
     markingExists: PropTypes.bool,
@@ -34,10 +35,15 @@ class Day extends React.Component {
     this.style = styleConstructor(props.theme, props);
     this.markingStyle = this.getDrawingStyle(props.marking || []);
     this.onDayPress = this.onDayPress.bind(this);
+    this.onDayLongPress = this.onDayLongPress.bind(this);
   }
 
   onDayPress() {
     this.props.onPress(this.props.date);
+  }
+
+  onDayLongPress() {
+    this.props.onLongPress(this.props.date);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -192,7 +198,10 @@ class Day extends React.Component {
     }
 
     return (
-      <TouchableWithoutFeedback onPress={this.onDayPress}>
+      <TouchableWithoutFeedback
+        onPress={this.onDayPress}
+        onLongPress={this.onDayLongPress}
+      >
         <View style={this.style.wrapper}>
           {fillers}
           <View style={containerStyle}>

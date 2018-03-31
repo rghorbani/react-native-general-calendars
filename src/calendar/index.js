@@ -61,6 +61,8 @@ class Calendar extends React.Component {
 
     // Handler which gets executed on day press. Default = undefined
     onDayPress: PropTypes.func,
+    // Handler which gets executed on day long press. Default = undefined
+    onDayLongPress: PropTypes.func,
     // Handler which gets executed when visible month changes in calendar. Default = undefined
     onMonthChange: PropTypes.func,
     onVisibleMonthsChange: PropTypes.func,
@@ -109,6 +111,7 @@ class Calendar extends React.Component {
     this.addMonth = this.addMonth.bind(this);
     this.monthFormat = this.monthFormat.bind(this);
     this.pressDay = this.pressDay.bind(this);
+    this.longPressDay = this.longPressDay.bind(this);
     this.shouldComponentUpdate = shouldComponentUpdate;
   }
 
@@ -159,6 +162,25 @@ class Calendar extends React.Component {
     }
   }
 
+  longPressDay(date) {
+    const day = parseDate(date);
+    const minDate = parseDate(this.props.type, this.props.minDate);
+    const maxDate = parseDate(this.props.type, this.props.maxDate);
+    if (!(minDate && !dateutils.isGTE(this.props.type, day, minDate)) && !(maxDate && !dateutils.isLTE(this.props.type, day, maxDate))) {
+      const shouldUpdateMonth = this.props.disableMonthChange === undefined || !this.props.disableMonthChange;
+      if (shouldUpdateMonth) {
+        this.updateMonth(day);
+      }
+      if (this.props.onDayLongPress) {
+        if (this.props.type === 'jalaali') {
+          this.props.onDayLongPress(gregorian.xdateToData(day), jalaali.xdateToData(day));
+        } else {
+          this.props.onDayLongPress(gregorian.xdateToData(day), gregorian.xdateToData(day));
+        }
+      }
+    }
+  }
+
   addMonth(count) {
     if (this.props.type === 'jalaali') {
       this.updateMonth(this.state.currentMonth.clone().add(count, 'jMonths'));
@@ -193,9 +215,9 @@ class Calendar extends React.Component {
     let dayComp;
     if (!dateutils.sameMonth(this.props.type, day, this.state.currentMonth) && this.props.hideExtraDays) {
       if (this.props.markingType === 'period') {
-        dayComp = (<View key={id} style={{flex: 1}}/>);
+        dayComp = (<View key={id} style={{flex: 1}} />);
       } else {
-        dayComp = (<View key={id} style={{width: 32}}/>);
+        dayComp = (<View key={id} style={this.style.hiddenExtraDays} />);
       }
     } else {
       const DayComp = this.getDayComponent();
@@ -213,6 +235,7 @@ class Calendar extends React.Component {
           theme={this.props.theme}
           rtl={this.props.rtl}
           onPress={this.pressDay}
+          onLongPress={this.longPressDay}
           date={xdateToData(this.props.type, day)}
           marking={this.getDateMarking(day)}
         >
@@ -304,7 +327,7 @@ class Calendar extends React.Component {
           onPressArrowLeft={this.props.onPressArrowLeft}
           onPressArrowRight={this.props.onPressArrowRight}
         />
-        {weeks}
+        <View style={this.style.monthView}>{weeks}</View>
       </View>);
   }
 }
@@ -324,13 +347,19 @@ function styleConstructor(theme = {}, {rtl, type}) {
     container: {
       paddingLeft: 5,
       paddingRight: 5,
-      backgroundColor: appStyle.calendarBackground
+      backgroundColor: appStyle.calendarBackground,
+    },
+    monthView: {
+      backgroundColor: appStyle.calendarBackground,
     },
     week: {
       marginTop: 7,
       marginBottom: 7,
       flexDirection: rtl ? 'row-reverse' : 'row',
-      justifyContent: 'space-around'
+      justifyContent: 'space-around',
+    },
+    hiddenExtraDays: {
+      width: 32,
     },
     ...(theme[STYLESHEET_ID] || {})
   });
