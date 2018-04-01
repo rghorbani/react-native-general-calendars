@@ -18,7 +18,7 @@ The solution is implemented in JavaScript so no native module linking is require
 
 ## Usage
 
-`import {` [Calendar](#calendar), [CalendarList](#calendarlist) `} from 'react-native-general-calendars';`
+`import {` [Calendar](#calendar), [CalendarList](#calendarlist), [Agenda](#agenda) `} from 'react-native-general-calendars';`
 
 All parameters for components are optional. By default the month of current local date will be displayed.
 
