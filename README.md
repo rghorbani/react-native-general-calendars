@@ -36,19 +36,20 @@ Event handler callbacks are called with `calendar objects` like this:
 
 Parameters that require date types accept YYYY-MM-DD formated datestrings (in gregorian), JavaScript date objects, `calendar objects` and UTC timestamps.
 
-Calendars can be localized by adding custom locales to `LocaleConfig` object:
+Calendars can be localized by adding custom locales using `Moment's i18n` object:
 
 ```javascript
-import {LocaleConfig} from 'react-native-calendars';
+import Moment from 'moment';
 
-LocaleConfig.locales['fr'] = {
-  monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-  monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
-  dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
-  dayNamesShort: ['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.']
-};
-
-LocaleConfig.defaultLocale = 'fr';
+Moment.locales('fr', {
+  months : 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
+    monthsShort : 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split('_'),
+    monthsParseExact : true,
+    weekdays : 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
+    weekdaysShort : 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
+    weekdaysMin : 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
+    weekdaysParseExact : true,
+});
 ```
 
 ### Calendar
