@@ -36,7 +36,7 @@ Event handler callbacks are called with `calendar objects` like this:
 
 Parameters that require date types accept YYYY-MM-DD formated datestrings (in gregorian), JavaScript date objects, `calendar objects` and UTC timestamps.
 
-Calendars can be localized by adding custom locales using `Moment's i18n` object:
+Calendars can be localized by adding custom locales using `Moment's i18n` functions:
 
 ```javascript
 import Moment from 'moment';
@@ -165,8 +165,44 @@ Period marking
      '2012-05-23': {selected: true, endingDay: true, color: 'green', textColor: 'gray'},
      '2012-05-04': {disabled: true, startingDay: true, color: 'green', endingDay: true}
     }}
-  // Date marking style [simple/period/multi-dot]. Default = 'simple'
+  // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
   markingType={'period'}
+/>
+```
+
+Custom marking allows you to customize each marker with custom styles.
+
+<kbd>
+  <img height=50 src="https://github.com/rghorbani/react-native-general-calendars/blob/master/demo/custom.png?raw=true">
+</kbd>
+
+```javascript
+<Calendar
+  // Date marking style [simple/period/multi-dot/single]. Default = 'simple'
+  markingType={'custom'}
+  markedDates={{
+    '2018-03-28': {
+      customStyles: {
+        container: {
+          backgroundColor: 'green',
+        },
+        text: {
+          color: 'black',
+          fontWeight: 'bold'
+        },
+      },
+    },
+    '2018-03-29': {
+      customStyles: {
+        container: {
+          backgroundColor: 'white',
+          elevation: 2
+        },
+        text: {
+          color: 'blue',
+        },
+      }
+    }}}
 />
 ```
 
@@ -207,6 +243,7 @@ The loading indicator next to month name will be displayed if `<Calendar />` has
     textDayFontFamily: 'monospace',
     textMonthFontFamily: 'monospace',
     textDayHeaderFontFamily: 'monospace',
+    textMonthFontWeight: 'bold',
     textDayFontSize: 16,
     textMonthFontSize: 16,
     textDayHeaderFontSize: 16
@@ -283,6 +320,27 @@ If you implement an awesome day component please make a PR so that other people 
   scrollEnabled={true}
   // Enable or disable vertical scroll indicator. Default = false
   showScrollIndicator={true}
+  ...calendarParams
+/>
+```
+
+#### Horizontal CalendarList
+
+<kbd>
+  <img src="https://github.com/rghorbani/react-native-general-calendars/blob/master/demo/horizontal-calendar-list.gif?raw=true">
+</kbd>
+
+You can also make the `CalendarList` scroll horizontally. To do that you need to pass specific props to the `CalendarList`:
+
+```javascript
+<CalendarList
+  // Enable horizontal scrolling, default = false
+  horizontal={true}
+  // Enable paging on horizontal, default = false
+  pagingEnabled={true}
+  // Set custom calendarWidth.
+  calendarWidth={320}
+  ...calendarListParams
   ...calendarParams
 />
 ```

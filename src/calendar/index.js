@@ -15,6 +15,7 @@ const { StyleSheet, View, ViewPropTypes } = require('react-native');
 const Day = require('./day/basic');
 const UnitDay = require('./day/period');
 const MultiDotDay = require('./day/multi-dot');
+const SingleDay = require('./day/custom');
 const CalendarHeader = require('./header');
 const shouldComponentUpdate = require('./updater');
 const dateutils = require('../dateutils');
@@ -245,6 +246,8 @@ class Calendar extends React.Component {
       return UnitDay;
     case 'multi-dot':
       return MultiDotDay;
+    case 'custom':
+      return SingleDay;
     default:
       return Day;
     }

@@ -8,21 +8,19 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Platform, StyleSheet } = require('react-native');
-const { Text, TouchableOpacity, View } = require('react-native-common');
+const { Platform, StyleSheet, Text, TouchableOpacity } = require('react-native');
 
 const defaultStyle = require('../../../style');
 
 class Day extends React.Component {
   static propTypes = {
     // TODO: disabled props should be removed
-    state: PropTypes.oneOf(['disabled', 'today', '']),
+    state: PropTypes.oneOf(['selected', 'disabled', 'today', '']),
 
     // Specify theme properties to override specific styles for calendar parts. Default = {}
     theme: PropTypes.object,
     marking: PropTypes.any,
     onPress: PropTypes.func,
-    onLongPress: PropTypes.func,
     date: PropTypes.object
   };
 
@@ -36,7 +34,6 @@ class Day extends React.Component {
   onDayPress() {
     this.props.onPress(this.props.date);
   }
-
   onDayLongPress() {
     this.props.onLongPress(this.props.date);
   }
@@ -56,8 +53,6 @@ class Day extends React.Component {
         markingChanged = (!(
           this.props.marking.marked === nextProps.marking.marked
           && this.props.marking.selected === nextProps.marking.selected
-          && this.props.marking.selectedColor === nextProps.marking.selectedColor
-          && this.props.marking.dotColor === nextProps.marking.dotColor
           && this.props.marking.disabled === nextProps.marking.disabled));
       } else {
         markingChanged = true;
@@ -71,9 +66,8 @@ class Day extends React.Component {
   }
 
   render() {
-    const containerStyle = [this.style.base];
-    const textStyle = [this.style.text];
-    const dotStyle = [this.style.dot];
+    let containerStyle = [this.style.base];
+    let textStyle = [this.style.text];
 
     let marking = this.props.marking || {};
     if (marking && marking.constructor === Array && marking.length) {
@@ -82,26 +76,26 @@ class Day extends React.Component {
       };
     }
     const isDisabled = typeof marking.disabled !== 'undefined' ? marking.disabled : this.props.state === 'disabled';
-    let dot;
-    if (marking.marked) {
-      dotStyle.push(this.style.visibleDot);
-      if (marking.dotColor) {
-        dotStyle.push({backgroundColor: marking.dotColor});
-      }
-      dot = (<View style={dotStyle}/>);
-    }
 
     if (marking.selected) {
       containerStyle.push(this.style.selected);
-      if (marking.selectedColor) {
-        containerStyle.push({backgroundColor: marking.selectedColor});
-      }
-      dotStyle.push(this.style.selectedDot);
-      textStyle.push(this.style.selectedText);
     } else if (isDisabled) {
       textStyle.push(this.style.disabledText);
     } else if (this.props.state === 'today') {
       textStyle.push(this.style.todayText);
+    }
+
+    if (marking.customStyles && typeof marking.customStyles === 'object') {
+      const styles = marking.customStyles;
+      if (styles.container) {
+        if (styles.container.borderRadius === undefined) {
+          styles.container.borderRadius = 16;
+        }
+        containerStyle.push(styles.container);
+      }
+      if (styles.text) {
+        textStyle.push(styles.text);
+      }
     }
 
     return (
@@ -113,13 +107,12 @@ class Day extends React.Component {
         disabled={marking.disableTouchEvent}
       >
         <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
-        {dot}
       </TouchableOpacity>
     );
   }
 }
 
-const STYLESHEET_ID = 'stylesheet.day.basic';
+const STYLESHEET_ID = 'stylesheet.day.single';
 
 function styleConstructor(theme = {}) {
   const appStyle = {...defaultStyle, ...theme};
@@ -152,20 +145,6 @@ function styleConstructor(theme = {}) {
     },
     disabledText: {
       color: appStyle.textDisabledColor
-    },
-    dot: {
-      width: 4,
-      height: 4,
-      marginTop: 1,
-      borderRadius: 2,
-      opacity: 0
-    },
-    visibleDot: {
-      opacity: 1,
-      backgroundColor: appStyle.dotColor
-    },
-    selectedDot: {
-      backgroundColor: appStyle.selectedDotColor
     },
     ...(theme[STYLESHEET_ID] || {})
   });

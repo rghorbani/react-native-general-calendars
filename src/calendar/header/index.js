@@ -92,6 +92,7 @@ class CalendarHeader extends React.Component {
         <TouchableOpacity
           onPress={this.onPressLeft}
           style={this.style.arrow}
+          hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
         >
           {this.props.renderArrow
             ? this.props.renderArrow('left')
@@ -102,7 +103,11 @@ class CalendarHeader extends React.Component {
         </TouchableOpacity>
       );
       rightArrow = (
-        <TouchableOpacity onPress={this.onPressRight} style={this.style.arrow}>
+        <TouchableOpacity
+          onPress={this.onPressRight}
+          style={this.style.arrow}
+          hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
+        >
           {this.props.renderArrow
             ? this.props.renderArrow('right')
             : <Image
@@ -164,7 +169,7 @@ function styleConstructor(theme = {}, {rtl, type}) {
     monthText: {
       fontSize: appStyle.textMonthFontSize,
       fontFamily: appStyle.textMonthFontFamily,
-      fontWeight: '300',
+      fontWeight: appStyle.textMonthFontWeight,
       color: appStyle.monthTextColor,
       margin: 10
     },

@@ -10,7 +10,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const Moment = require('moment');
 const jMoment = require('moment-jalaali');
-const { FlatList, Platform, StyleSheet } = require('react-native');
+const { Dimensions, FlatList, Platform, StyleSheet } = require('react-native');
 
 const CalendarListItem = require('./item');
 const Calendar = require('../calendar');
@@ -18,9 +18,17 @@ const defaultStyle = require('../style');
 const dateutils = require('../dateutils');
 const { xdateToData, parseDate } = require('../interface');
 
+const { width } = Dimensions.get('window');
+
 class CalendarList extends React.Component {
   static propTypes = {
     ...Calendar.propTypes,
+
+    // Whether the scroll is horizontal
+    horizontal: PropTypes.bool,
+
+    // Used when calendar scroll is horizontal, default is device width, pagination should be disabled
+    calendarWidth: PropTypes.number,
 
     // hight of each calendar. Default = 360
     calendarHeight: PropTypes.number,
@@ -43,12 +51,14 @@ class CalendarList extends React.Component {
 
   static defaultProps = {
     type: 'gregorian',
+    calendarWidth: width,
     calendarHeight: 360,
     pastScrollRange: 50,
     futureScrollRange: 50,
     showScrollIndicator: false,
     scrollEnabled: true,
     scrollsToTop: false,
+    removeClippedSubviews: Platform.OS === 'android' ? false : true,
   };
 
   constructor(props) {
@@ -91,9 +101,9 @@ class CalendarList extends React.Component {
       initialized: false,
     };
 
-    this.getItemLayout = this.getItemLayout.bind(this);
     this.onViewableItemsChangedBound = this.onViewableItemsChanged.bind(this);
     this.renderCalendar = this.renderCalendar.bind(this);
+    this.getItemLayout = this.getItemLayout.bind(this);
   }
 
   scrollToDay(d, offset, animated) {
@@ -193,11 +203,11 @@ class CalendarList extends React.Component {
   }
 
   renderCalendar({item}) {
-    return (<CalendarListItem item={item} calendarHeight={this.props.calendarHeight} {...this.props} />);
+    return (<CalendarListItem item={item} calendarHeight={this.props.calendarHeight} calendarWidth={this.props.horizontal ? this.props.calendarWidth : undefined} {...this.props} />);
   }
 
   getItemLayout(data, index) {
-    return {length: this.props.calendarHeight, offset: this.props.calendarHeight * index, index};
+    return {length: this.props.horizontal ? this.props.calendarWidth : this.props.calendarHeight, offset: (this.props.horizontal ? this.props.calendarWidth : this.props.calendarHeight) * index, index};
   }
 
   getMonthIndex(month) {
@@ -215,13 +225,16 @@ class CalendarList extends React.Component {
       <FlatList
         ref={(c) => this.listView = c}
         style={[this.style.container, this.props.style]}
-        initialListSize={this.props.pastScrollRange * this.props.futureScrollRange + 1}
+        initialListSize={this.props.pastScrollRange + this.props.futureScrollRange + 1}
         data={this.state.rows}
-        removeClippedSubviews={Platform.OS === 'android' ? false : true}
+        removeClippedSubviews={this.props.removeClippedSubviews}
         pageSize={1}
+        horizontal={this.props.horizontal || false}
+        pagingEnabled={this.props.pagingEnabled}
         onViewableItemsChanged={this.onViewableItemsChangedBound}
         renderItem={this.renderCalendar}
         showsVerticalScrollIndicator={this.props.showScrollIndicator}
+        showsHorizontalScrollIndicator={this.props.showScrollIndicator}
         scrollEnabled={this.props.scrollEnabled}
         keyExtractor={(item, index) => String(index)}
         initialScrollIndex={this.state.openDate ? this.getMonthIndex(this.state.openDate) : false}
