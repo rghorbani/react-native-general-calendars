@@ -11,6 +11,7 @@ const PropTypes = require('prop-types');
 const { Platform, StyleSheet } = require('react-native');
 const { Text, TouchableOpacity, View } = require('react-native-common');
 
+const { shouldUpdate } = require('../../../component-updater');
 const defaultStyle = require('../../../style');
 
 class Day extends React.Component {
@@ -42,32 +43,7 @@ class Day extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const changed = ['state', 'children', 'marking', 'onPress'].reduce((prev, next) => {
-      if (prev) {
-        return prev;
-      } else if (nextProps[next] !== this.props[next]) {
-        return next;
-      }
-      return prev;
-    }, false);
-    if (changed === 'marking') {
-      let markingChanged = false;
-      if (this.props.marking && nextProps.marking) {
-        markingChanged = (!(
-          this.props.marking.marked === nextProps.marking.marked
-          && this.props.marking.selected === nextProps.marking.selected
-          && this.props.marking.selectedColor === nextProps.marking.selectedColor
-          && this.props.marking.dotColor === nextProps.marking.dotColor
-          && this.props.marking.disabled === nextProps.marking.disabled));
-      } else {
-        markingChanged = true;
-      }
-      // console.log('marking changed', markingChanged);
-      return markingChanged;
-    } else {
-      // console.log('changed', changed);
-      return !!changed;
-    }
+    return shouldUpdate(this.props, nextProps, ['state', 'children', 'marking', 'onPress', 'onLongPress']);
   }
 
   render() {

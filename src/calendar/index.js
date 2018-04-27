@@ -15,6 +15,7 @@ const { StyleSheet, View, ViewPropTypes } = require('react-native');
 const Day = require('./day/basic');
 const UnitDay = require('./day/period');
 const MultiDotDay = require('./day/multi-dot');
+const MultiPeriodDay = require('./day/multi-period');
 const SingleDay = require('./day/custom');
 const CalendarHeader = require('./header');
 const shouldComponentUpdate = require('./updater');
@@ -50,7 +51,7 @@ class Calendar extends React.Component {
     // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
     firstDay: PropTypes.number,
 
-    // Date marking style [simple/multi-dot/period]. Default = 'simple'
+    // Date marking style [simple/period/multi-dot/multi-period]. Default = 'simple'
     markingType: PropTypes.string,
 
     // Hide month navigation arrows. Default = false
@@ -204,7 +205,7 @@ class Calendar extends React.Component {
     }
     let dayComp;
     if (!dateutils.sameMonth(this.props.type, day, this.state.currentMonth) && this.props.hideExtraDays) {
-      if (this.props.markingType === 'period') {
+      if (['period', 'multi-period'].includes(this.props.markingType)) {
         dayComp = (<View key={id} style={{flex: 1}} />);
       } else {
         dayComp = (<View key={id} style={this.style.dayContainer} />);
@@ -246,6 +247,8 @@ class Calendar extends React.Component {
       return UnitDay;
     case 'multi-dot':
       return MultiDotDay;
+    case 'multi-dot':
+      return MultiPeriodDay;
     case 'custom':
       return SingleDay;
     default:

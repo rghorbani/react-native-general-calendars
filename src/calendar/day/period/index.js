@@ -8,9 +8,11 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
+const isEqual = require('lodash.isequal');
 const { StyleSheet, TouchableWithoutFeedback } = require('react-native');
 const { Text, View } = require('react-native-common');
 
+const { shouldUpdate } = require('../../../component-updater');
 const defaultStyle = require('../../../style');
 
 class Day extends React.Component {
@@ -49,17 +51,12 @@ class Day extends React.Component {
   shouldComponentUpdate(nextProps) {
     const newMarkingStyle = this.getDrawingStyle(nextProps.marking);
 
-    if (JSON.stringify(this.markingStyle) !== JSON.stringify(newMarkingStyle)) {
+    if (!isEqual(this.markingStyle, newMarkingStyle)) {
       this.markingStyle = newMarkingStyle;
       return true;
     }
 
-    return ['state', 'children'].reduce((prev, next) => {
-      if (prev || nextProps[next] !== this.props[next]) {
-        return true;
-      }
-      return prev;
-    }, false);
+    return shouldUpdate(this.props, nextProps, ['state', 'children', 'onPress', 'onLongPress']);
   }
 
   getDrawingStyle(marking) {
