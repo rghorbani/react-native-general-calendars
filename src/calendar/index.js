@@ -247,7 +247,7 @@ class Calendar extends React.Component {
       return UnitDay;
     case 'multi-dot':
       return MultiDotDay;
-    case 'multi-dot':
+    case 'multi-period':
       return MultiPeriodDay;
     case 'custom':
       return SingleDay;
