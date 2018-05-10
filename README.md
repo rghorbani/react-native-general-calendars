@@ -36,6 +36,16 @@ Event handler callbacks are called with `calendar objects` like this:
 
 Parameters that require date types accept YYYY-MM-DD formated datestrings (in gregorian), JavaScript date objects, `calendar objects` and UTC timestamps.
 
+### Calendar Types
+
+The package implements different type of calendars through `type` parameter. By setting the `type="jalaali"`, you can use the calendar as Jalaali.
+
+### RTL support
+
+The package has independent RTL implementations. But if you want to use the react's `I18Manager`, you should set the `rtl` parameter to false `rtl={false}`.
+
+### Moment
+
 Calendars can be localized by adding custom locales using `Moment's i18n` functions:
 
 ```javascript
@@ -382,7 +392,9 @@ Coming soon
 
 ## Authors
 
-* [Reza Ghorbani](https://github.com/rghorbani/) - Initial code - [@rghorbanif](https://twitter.com/RGhorbaniF)
+* [Reza Ghorbani](https://github.com/rghorbani/) - Re-implementation - [@rghorbanif](https://twitter.com/RGhorbaniF)
+* [Tautvilas Mecinskas](https://github.com/tautvilas/) - Initial code - [@tautvilas](https://twitter.com/tautvilas)
+* Katrin Zotchev - Initial design - [@katrin_zot](https://twitter.com/katrin_zot)
 
 See also the list of [contributors](https://github.com/rghorbani/react-native-general-calendars/contributors) who participated in this project.
 

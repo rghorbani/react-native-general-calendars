@@ -14,6 +14,7 @@ const defaultStyle = require('../style');
 
 class CalendarListItem extends React.Component {
   static defaultProps = {
+    hideArrows: true,
     hideExtraDays: true,
   };
 
@@ -41,13 +42,14 @@ class CalendarListItem extends React.Component {
           theme={this.props.theme}
           style={[{height: this.props.calendarHeight}, this.style.calendar]}
           current={row}
-          hideArrows
+          hideArrows={this.props.hideArrows}
           hideExtraDays={this.props.hideExtraDays}
           disableMonthChange
           markedDates={this.props.markedDates}
           markingType={this.props.markingType}
           hideDayNames={this.props.hideDayNames}
           onDayPress={this.props.onDayPress}
+          onDayLongPress={this.props.onDayLongPress}
           displayLoadingIndicator={this.props.displayLoadingIndicator}
           minDate={this.props.minDate}
           maxDate={this.props.maxDate}
