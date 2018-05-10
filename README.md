@@ -73,19 +73,19 @@ Moment.locales('fr', {
 ```javascript
 <Calendar
   // Calendar type (gregorian, jalaali). Default = gregorian
-  type={'gregorian'}
+  type="gregorian"
   // Initially visible month. Default = Date()
-  current={'2012-03-01'}
+  current="2012-03-01"
   // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-  minDate={'2012-05-10'}
+  minDate="2012-05-10"
   // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-  maxDate={'2012-05-30'}
+  maxDate="2012-05-30"
   // Handler which gets executed on day press. Default = undefined
   onDayPress={(day, localDay) => {console.log('selected day', day, localDay)}}
   // Handler which gets executed on day long press. Default = undefined
   onDayLongPress={(day) => {console.log('selected day', day)}}
   // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-  monthFormat={'YYYY MM'}
+  monthFormat="YYYY MM"
   // Handler which gets executed when visible month changes in calendar. Default = undefined
   onMonthChange={(month) => {console.log('month changed', month)}}
   // Hide month navigation arrows. Default = false
@@ -151,7 +151,7 @@ const workout = {key:'workout', color: 'green'};
     '2017-10-25': {dots: [vacation, massage, workout], selected: true, selectedColor: 'red'},
     '2017-10-26': {dots: [massage, workout], disabled: true},
   }},
-  markingType={'multi-dot'}
+  markingType="multi-dot"
 />
 ```
 
@@ -176,7 +176,7 @@ Period marking
      '2012-05-04': {disabled: true, startingDay: true, color: 'green', endingDay: true}
     }}
   // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
-  markingType={'period'}
+  markingType="period"
 />
 ```
 
@@ -207,7 +207,7 @@ CAUTION: This marking is only fully supported by the `<Calendar />` component be
     },
   }}
   // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
-  markingType='multi-period'
+  markingType="multi-period"
 />
 ```
 
@@ -220,7 +220,7 @@ Custom marking allows you to customize each marker with custom styles.
 ```javascript
 <Calendar
   // Date marking style [simple/period/multi-dot/single]. Default = 'simple'
-  markingType={'custom'}
+  markingType="custom"
   markedDates={{
     '2018-03-28': {
       customStyles: {
