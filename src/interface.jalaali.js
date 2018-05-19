@@ -8,6 +8,7 @@
 
 const Moment = require('moment');
 const jMoment = require('moment-jalaali');
+jMoment.locale('en');
 
 function padNumber(n) {
   if (n < 10) {
