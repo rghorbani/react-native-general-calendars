@@ -8,6 +8,7 @@
 'use strict';
 
 module.exports = {
+  get Agenda() { return require('./agenda'); },
   get Calendar() { return require('./calendar'); },
   get CalendarList() { return require('./calendar-list'); },
   get DatePicker() { return require('./datepicker'); },
