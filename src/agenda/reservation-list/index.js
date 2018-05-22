@@ -43,7 +43,7 @@ class ReservationsList extends React.Component {
     this.state = {
       reservations: []
     };
-    this.heights=[];
+    this.heights = [];
     this.selectedDay = this.props.selectedDay;
     this.scrollOver = true;
   }

@@ -434,7 +434,7 @@ class AgendaView extends React.Component {
         </Animated.View>
         <Animated.ScrollView
           ref={c => this.scrollPad = c}
-          overScrollMode='never'
+          overScrollMode="never"
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           style={scrollPadStyle}
