@@ -127,6 +127,7 @@ class Day extends React.Component {
     if (this.props.state === 'disabled') {
       textStyle.push(this.style.disabledText);
     } else if (this.props.state === 'today') {
+      containerStyle.push(this.style.today);
       textStyle.push(this.style.todayText);
     }
 
@@ -258,6 +259,9 @@ function styleConstructor(theme = {}, {rtl, type}) {
       fontWeight: '300',
       color: appStyle.dayTextColor || '#2d4150',
       backgroundColor: 'rgba(255, 255, 255, 0)'
+    },
+    today: {
+      backgroundColor: appStyle.todayBackgroundColor,
     },
     todayText: {
       fontWeight: '500',

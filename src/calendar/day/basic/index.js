@@ -77,6 +77,7 @@ class Day extends React.Component {
     } else if (isDisabled) {
       textStyle.push(this.style.disabledText);
     } else if (this.props.state === 'today') {
+      containerStyle.push(this.style.today);
       textStyle.push(this.style.todayText);
     }
 
@@ -103,7 +104,7 @@ function styleConstructor(theme = {}) {
     base: {
       width: 32,
       height: 32,
-      alignItems: 'center'
+      alignItems: 'center',
     },
     text: {
       marginTop: Platform.OS === 'android' ? 4 : 6,
@@ -111,37 +112,40 @@ function styleConstructor(theme = {}) {
       fontFamily: appStyle.textDayFontFamily,
       fontWeight: '300',
       color: appStyle.dayTextColor,
-      backgroundColor: 'rgba(255, 255, 255, 0)'
+      backgroundColor: 'rgba(255, 255, 255, 0)',
     },
     alignedText: {
-      marginTop: Platform.OS === 'android' ? 4 : 6
+      marginTop: Platform.OS === 'android' ? 4 : 6,
     },
     selected: {
       backgroundColor: appStyle.selectedDayBackgroundColor,
       borderRadius: 16
     },
+    today: {
+      backgroundColor: appStyle.todayBackgroundColor,
+    },
     todayText: {
-      color: appStyle.todayTextColor
+      color: appStyle.todayTextColor,
     },
     selectedText: {
-      color: appStyle.selectedDayTextColor
+      color: appStyle.selectedDayTextColor,
     },
     disabledText: {
-      color: appStyle.textDisabledColor
+      color: appStyle.textDisabledColor,
     },
     dot: {
       width: 4,
       height: 4,
       marginTop: 1,
       borderRadius: 2,
-      opacity: 0
+      opacity: 0,
     },
     visibleDot: {
       opacity: 1,
-      backgroundColor: appStyle.dotColor
+      backgroundColor: appStyle.dotColor,
     },
     selectedDot: {
-      backgroundColor: appStyle.selectedDotColor
+      backgroundColor: appStyle.selectedDotColor,
     },
     ...(theme[STYLESHEET_ID] || {})
   });

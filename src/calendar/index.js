@@ -106,7 +106,7 @@ class Calendar extends React.Component {
       }
     }
     this.state = {
-      currentMonth
+      currentMonth,
     };
 
     this.updateMonth = this.updateMonth.bind(this);

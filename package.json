@@ -1,6 +1,6 @@
 {
   "name": "react-native-general-calendars",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "React Native Calendar Components with support of Gregorian & Jalaali (Shamsi, Persian) Calendars",
   "main": "src/index.js",
   "scripts": {
@@ -24,6 +24,8 @@
     "moment-jalaali",
     "moment",
     "calendars",
+    "calendar-list",
+    "agenda",
     "gregorian",
     "jalaali",
     "hijri",
@@ -41,9 +43,9 @@
   "dependencies": {
     "lodash.get": "^4.4.2",
     "lodash.isequal": "^4.5.0",
-    "moment": "^2.22.1",
-    "moment-jalaali": "^0.7.2",
-    "prop-types": "~15.6.1",
+    "moment": "^2.22.2",
+    "moment-jalaali": "^0.7.4",
+    "prop-types": "~15.6.2",
     "react-native-common": "^1.11.2"
   },
   "devDependencies": {

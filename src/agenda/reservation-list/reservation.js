@@ -8,6 +8,7 @@
 
 const React = require('react');
 const Moment = require('moment');
+const jMoment = require('moment-jalaali');
 const { StyleSheet, Text, View } = require('react-native');
 
 const dateutils = require('../../dateutils');
@@ -44,12 +45,18 @@ class ReservationListItem extends React.Component {
     if (this.props.renderDay) {
       return this.props.renderDay(date ? xdateToData(this.props.type, date) : undefined, item);
     }
-    const today = dateutils.sameDate(this.props.type, date, Moment()) ? this.styles.today : undefined;
+    let todayDate;
+    if (this.props.type === 'jalaali') {
+      todayDate = jMoment.utc();
+    } else {
+      todayDate = Moment.utc();
+    }
+    const today = dateutils.sameDate(this.props.type, date, todayDate) ? this.styles.today : undefined;
     if (date) {
       return (
         <View style={this.styles.day}>
           <Text allowFontScaling={false} style={[this.styles.dayNum, today]}>{date.date()}</Text>
-          <Text allowFontScaling={false} style={[this.styles.dayText, today]}>{Moment.weekdaysShort()[date.day()]}</Text>
+          <Text allowFontScaling={false} style={[this.styles.dayText, today]}>{dateutils.weekDayNames(this.props.type)[date.day()]}</Text>
         </View>
       );
     } else {

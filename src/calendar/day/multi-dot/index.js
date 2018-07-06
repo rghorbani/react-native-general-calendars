@@ -77,6 +77,7 @@ class Day extends React.Component {
     } else if (typeof marking.disabled !== 'undefined' ? marking.disabled : this.props.state === 'disabled') {
       textStyle.push(this.style.disabledText);
     } else if (this.props.state === 'today') {
+      containerStyle.push(this.style.today);
       textStyle.push(this.style.todayText);
     }
     return (
@@ -116,6 +117,9 @@ function styleConstructor(theme = {}) {
     selected: {
       backgroundColor: appStyle.selectedDayBackgroundColor,
       borderRadius: 16
+    },
+    today: {
+      backgroundColor: appStyle.todayBackgroundColor,
     },
     todayText: {
       color: appStyle.todayTextColor

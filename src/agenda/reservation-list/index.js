@@ -35,6 +35,13 @@ class ReservationsList extends React.Component {
 
     selectedDay: PropTypes.instanceOf(Moment),
     topDay: PropTypes.instanceOf(Moment),
+    refreshControl: PropTypes.element,
+    refreshing: PropTypes.bool,
+    onRefresh: PropTypes.func,
+  };
+
+  static defaultProps = {
+    refreshing: false,
   };
 
   constructor(props) {
@@ -199,6 +206,9 @@ class ReservationsList extends React.Component {
         scrollEventThrottle={200}
         onMoveShouldSetResponderCapture={() => {this.onListTouch(); return false;}}
         keyExtractor={(item, index) => String(index)}
+        refreshControl={this.props.refreshControl}
+        refreshing={this.props.refreshing}
+        onRefresh={this.props.onRefresh}
       />
     );
   }
