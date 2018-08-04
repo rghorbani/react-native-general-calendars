@@ -10,7 +10,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const _ = require('lodash');
 const { Text } = require('react-native');
-const { Button, Colors, Picker, View } = require('react-native-common');
+const { Button, Constants, Colors, Picker, View } = require('react-native-common');
 
 const DatePickerModal = require('./DatePickerModal');
 const Calendar = require('../calendar');
@@ -82,23 +82,27 @@ class DatePicker extends Picker {
   }
 
   renderExpandableInput() {
+    const {value} = this.state;
+    const {placeholder, rightIconSource, style} = this.props;
     const typography = this.getTypography();
-    const minHeight = typography.lineHeight;
     const color = this.extractColorValue() || Colors.dark10;
     const label = this.getLabel();
+    const shouldShowPlaceholder = _.isEmpty(value);
 
     return (
       <Text
         style={[
           this.styles.input,
           typography,
-          {minHeight},
           {color},
+          style,
+          {height: Constants.isAndroid ? typography.lineHeight : undefined},
+          shouldShowPlaceholder && this.styles.placeholder,
         ]}
         numberOfLines={3}
         onPress={this.handlePickerOnPress}
       >
-        {label}
+        {shouldShowPlaceholder ? placeholder : label}
       </Text>
     );
   }
@@ -109,7 +113,6 @@ class DatePicker extends Picker {
     return (
       <DatePickerModal
         visible={showExpandableModal}
-
         enableModalBlur={enableModalBlur}
         topBarProps={{
           ...topBarProps,

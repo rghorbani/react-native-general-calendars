@@ -34,7 +34,9 @@ class DatePickerModal extends BaseComponent {
         onRequestClose={topBarProps.onCancel}
       >
         <Modal.TopBar {...topBarProps}/>
-        <ScrollView>
+        <ScrollView
+          keyboardShouldPersistTaps="always"
+        >
           <View style={this.styles.modalBody}>
             {children}
           </View>
