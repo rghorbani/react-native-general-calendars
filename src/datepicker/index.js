@@ -83,7 +83,7 @@ class DatePicker extends Picker {
 
   renderExpandableInput() {
     const {value} = this.state;
-    const {placeholder, rightIconSource, style} = this.props;
+    const {placeholder, style} = this.props;
     const typography = this.getTypography();
     const color = this.extractColorValue() || Colors.dark10;
     const label = this.getLabel();
