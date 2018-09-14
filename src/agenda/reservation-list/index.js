@@ -121,6 +121,7 @@ class ReservationsList extends React.Component {
       <View onLayout={this.onRowLayoutChange.bind(this, index)}>
         <Reservation
           item={item}
+          type={this.props.type}
           renderItem={this.props.renderItem}
           renderDay={this.props.renderDay}
           renderEmptyDate={this.props.renderEmptyDate}
