@@ -117,7 +117,7 @@ class Calendar extends React.Component {
     this.shouldComponentUpdate = shouldComponentUpdate;
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const current = parseDate(this.props.type, nextProps.current);
     if (current && current.format('YYYY MM') !== this.state.currentMonth.format('YYYY MM')) {
       this.setState({

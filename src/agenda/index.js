@@ -236,7 +236,7 @@ class AgendaView extends React.Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this._isMounted = true;
     this.loadReservations(this.props);
   }
@@ -245,7 +245,7 @@ class AgendaView extends React.Component {
     this._isMounted = false;
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     if (props.items) {
       this.setState({
         firstResevationLoad: false

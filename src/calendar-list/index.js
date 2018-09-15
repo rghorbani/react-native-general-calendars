@@ -152,7 +152,7 @@ class CalendarList extends React.Component {
     this.listView.scrollToOffset({offset: scrollAmount, animated: false});
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     const current = parseDate(this.props.type, this.props.current);
     const nextCurrent = parseDate(this.props.type, props.current);
     if (nextCurrent && current && nextCurrent.valueOf() !== current.valueOf()) {

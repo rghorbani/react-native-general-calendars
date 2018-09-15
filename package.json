@@ -1,6 +1,6 @@
 {
   "name": "react-native-general-calendars",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "description": "React Native Calendar Components with support of Gregorian & Jalaali (Shamsi, Persian) Calendars",
   "main": "src/index.js",
   "scripts": {
@@ -51,14 +51,14 @@
   },
   "devDependencies": {
     "babel-cli": "~6.26.0",
-    "babel-eslint": "~8.2.3",
-    "babel-jest": "~22.4.3",
+    "babel-eslint": "~9.0.0",
+    "babel-jest": "~23.6.0",
     "babel-preset-react": "~6.24.1",
     "babel-preset-react-native": "~4.0.0",
-    "eslint": "~4.16.0",
-    "eslint-plugin-react": "~7.7.0",
-    "eslint-plugin-react-native": "~3.2.1",
-    "jest": "~22.4.3",
+    "eslint": "~5.6.0",
+    "eslint-plugin-react": "~7.11.1",
+    "eslint-plugin-react-native": "~3.3.0",
+    "jest": "~23.6.0",
     "react": "16.0.0",
     "react-native": "0.51.0"
   },
