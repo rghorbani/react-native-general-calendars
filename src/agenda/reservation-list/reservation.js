@@ -53,9 +53,10 @@ class ReservationListItem extends React.Component {
     }
     const today = dateutils.sameDate(this.props.type, date, todayDate) ? this.styles.today : undefined;
     if (date) {
+      const jDate = this.props.type === 'jalaali' ? jMoment(date).jDate() : date.date();
       return (
         <View style={this.styles.day}>
-          <Text allowFontScaling={false} style={[this.styles.dayNum, today]}>{date.date()}</Text>
+          <Text allowFontScaling={false} style={[this.styles.dayNum, today]}>{jDate}</Text>
           <Text allowFontScaling={false} style={[this.styles.dayText, today]}>{dateutils.weekDayNames(this.props.type)[date.day()]}</Text>
         </View>
       );
