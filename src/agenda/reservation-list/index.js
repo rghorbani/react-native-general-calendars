@@ -1,16 +1,24 @@
-const React = require('react');
-const PropTypes = require('prop-types');
-const Moment = require('moment');
-const {
+/**
+ * Copyright 2016 Reza (github.com/rghorbani).
+ *
+ * @flow
+ */
+
+'use strict';
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import Moment from 'moment';
+import {
   ActivityIndicator,
   FlatList,
   StyleSheet,
   View
-} = require('react-native');
+} from 'react-native';
 
-const Reservation = require('./reservation');
-const dateutils = require('../../dateutils');
-const defaultStyle = require('../../style');
+import Reservation from './reservation';
+import dateutils from '../../dateutils';
+import defaultStyle from '../../style';
 
 class ReservationsList extends React.Component {
   static propTypes = {

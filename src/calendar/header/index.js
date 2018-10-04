@@ -6,14 +6,18 @@
 
 'use strict';
 
-const React = require('react');
-const PropTypes = require('prop-types');
-const Moment = require('moment');
-const { ActivityIndicator, Platform, Image, StyleSheet } = require('react-native');
-const { Text, TouchableOpacity, View } = require('react-native-common');
+import React from 'react';
+import PropTypes from 'prop-types';
+import Moment from 'moment';
+import { ActivityIndicator, Platform, Image, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native-common';
 
-const defaultStyle = require('../../style');
-const { weekDayNames } = require('../../dateutils');
+import defaultStyle from '../../style';
+import { weekDayNames } from '../../dateutils';
+import {
+  CHANGE_MONTH_LEFT_ARROW,
+  CHANGE_MONTH_RIGHT_ARROW
+} from '../../testIDs';
 
 class CalendarHeader extends React.Component {
   static propTypes = {
@@ -93,6 +97,7 @@ class CalendarHeader extends React.Component {
           onPress={this.onPressLeft}
           style={this.style.arrow}
           hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
+          testID={CHANGE_MONTH_LEFT_ARROW}
         >
           {this.props.renderArrow
             ? this.props.renderArrow('left')
@@ -107,6 +112,7 @@ class CalendarHeader extends React.Component {
           onPress={this.onPressRight}
           style={this.style.arrow}
           hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
+          testID={CHANGE_MONTH_RIGHT_ARROW}
         >
           {this.props.renderArrow
             ? this.props.renderArrow('right')
@@ -136,7 +142,7 @@ class CalendarHeader extends React.Component {
         {
           !this.props.hideDayNames &&
           <View style={this.style.week}>
-            {this.props.weekNumbers && <Text allowFontScaling={false} style={this.style.dayHeader}></Text>}
+            {this.props.weekNumbers && <Text allowFontScaling={false} style={this.style.dayHeader} />}
             {weekDaysNames.map((day, idx) => (
               <Text allowFontScaling={false} key={idx} accessible={false} style={this.style.dayHeader} numberOfLines={1} importantForAccessibility="no">{day}</Text>
             ))}

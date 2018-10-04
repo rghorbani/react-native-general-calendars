@@ -226,7 +226,6 @@ function styleConstructor(theme = {}, {rtl, type}) {
   const appStyle = {...defaultStyle, ...theme};
   return StyleSheet.create({
     wrapper: {
-      flex: 1,
       alignItems: 'center',
       alignSelf: 'stretch',
       marginLeft: -1

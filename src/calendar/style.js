@@ -6,8 +6,8 @@
 
 'use strict';
 
-const { StyleSheet } = require('react-native');
-const defaultStyle = require('../style');
+import { StyleSheet }  from 'react-native';
+import defaultStyle  from '../style';
 
 const STYLESHEET_ID = 'stylesheet.calendar.main';
 

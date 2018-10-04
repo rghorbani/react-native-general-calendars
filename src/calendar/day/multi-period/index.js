@@ -99,8 +99,6 @@ class Day extends React.Component {
     return (
       <View
         style={{
-          flex: 1,
-          alignItems: 'center',
           alignSelf: 'stretch',
         }}>
         <TouchableOpacity style={containerStyle} onPress={this.onDayPress}>

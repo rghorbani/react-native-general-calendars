@@ -6,7 +6,7 @@
 
 'use strict';
 
-const { parseDate } = require('../interface');
+import { parseDate } from '../interface';
 
 export default function shouldComponentUpdate(nextProps, nextState) {
   let shouldUpdate = (nextProps.selected || []).reduce((prev, next, i) => {

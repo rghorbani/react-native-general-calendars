@@ -6,11 +6,11 @@
 
 'use strict';
 
-const React = require('react');
-const {StyleSheet, Text, View} = require('react-native');
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
-const Calendar = require('../calendar');
-const defaultStyle = require('../style');
+import Calendar from '../calendar';
+import defaultStyle from '../style';
 
 class CalendarListItem extends React.Component {
   static defaultProps = {

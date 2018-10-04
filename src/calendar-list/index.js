@@ -6,17 +6,17 @@
 
 'use strict';
 
-const React = require('react');
-const PropTypes = require('prop-types');
-const Moment = require('moment');
-const jMoment = require('moment-jalaali');
-const { Dimensions, FlatList, Platform, StyleSheet } = require('react-native');
+import React from 'react';
+import PropTypes from 'prop-types';
+import Moment from 'moment';
+import jMoment from 'moment-jalaali';
+import { Dimensions, FlatList, Platform, StyleSheet } from 'react-native';
 
-const CalendarListItem = require('./item');
-const Calendar = require('../calendar');
-const defaultStyle = require('../style');
-const dateutils = require('../dateutils');
-const { xdateToData, parseDate } = require('../interface');
+import CalendarListItem from './item';
+import Calendar from '../calendar';
+import defaultStyle from '../style';
+import dateutils from '../dateutils';
+import { xdateToData, parseDate } from '../interface';
 
 const { width } = Dimensions.get('window');
 

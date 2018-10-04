@@ -203,22 +203,18 @@ class Calendar extends React.Component {
     } else if (dateutils.sameDate(this.props.type, day, Moment())) {
       state = 'today';
     }
-    let dayComp;
     if (!dateutils.sameMonth(this.props.type, day, this.state.currentMonth) && this.props.hideExtraDays) {
-      if (['period', 'multi-period'].includes(this.props.markingType)) {
-        dayComp = (<View key={id} style={{flex: 1}} />);
-      } else {
-        dayComp = (<View key={id} style={this.style.dayContainer} />);
-      }
+      return (<View key={id} style={{flex: 1}}/>);
+    }
+    const DayComp = this.getDayComponent();
+    let date;
+    if (this.props.type === 'jalaali') {
+      date = day.jDate();
     } else {
-      const DayComp = this.getDayComponent();
-      let date;
-      if (this.props.type === 'jalaali') {
-        date = day.jDate();
-      } else {
-        date = day.date();
-      }
-      dayComp = (
+      date = day.date();
+    }
+    return (
+      <View style={{flex: 1, alignItems: 'center'}} key={id}>
         <DayComp
           key={id}
           state={state}
@@ -232,9 +228,8 @@ class Calendar extends React.Component {
         >
           {date}
         </DayComp>
-      );
-    }
-    return dayComp;
+      </View>
+    );
   }
 
   getDayComponent() {
@@ -352,9 +347,6 @@ function styleConstructor(theme = {}, {rtl, type}) {
       marginBottom: 7,
       flexDirection: rtl ? 'row-reverse' : 'row',
       justifyContent: 'space-around',
-    },
-    dayContainer: {
-      width: 32,
     },
     ...(theme[STYLESHEET_ID] || {})
   });

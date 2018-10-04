@@ -6,14 +6,14 @@
 
 'use strict';
 
-const React = require('react');
-const Moment = require('moment');
-const jMoment = require('moment-jalaali');
-const { StyleSheet, Text, View } = require('react-native');
+import React from 'react';
+import Moment from 'moment';
+import jMoment from 'moment-jalaali';
+import { StyleSheet, Text, View } from 'react-native';
 
-const dateutils = require('../../dateutils');
-const defaultStyle = require('../../style');
-const { xdateToData } = require('../../interface');
+import dateutils from '../../dateutils';
+import defaultStyle from '../../style';
+import { xdateToData } from '../../interface';
 
 class ReservationListItem extends React.Component {
   constructor(props) {
