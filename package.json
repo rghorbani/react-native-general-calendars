@@ -1,6 +1,6 @@
 {
   "name": "react-native-general-calendars",
-  "version": "1.7.4",
+  "version": "1.8.0",
   "description": "React Native Calendar Components with support of Gregorian & Jalaali (Shamsi, Persian) Calendars",
   "main": "src/index.js",
   "scripts": {
