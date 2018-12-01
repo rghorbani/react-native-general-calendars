@@ -127,7 +127,9 @@ class Calendar extends React.Component {
   }
 
   updateMonth(day, doNotTriggerListeners) {
-    if (day.format('YYYY MM') === this.state.currentMonth.format('YYYY MM')) {
+    if ((this.props.type!=="jalaali" && day.format('YYYY MM') === this.state.currentMonth.format('YYYY MM'))||
+    (this.props.type==="jalaali" && day.format('jYYYY jMM') ===
+    this.state.currentMonth.format('jYYYY jMM'))) {
       return;
     }
     this.setState({
