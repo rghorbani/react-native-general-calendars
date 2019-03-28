@@ -59,7 +59,7 @@ class CalendarHeader extends React.Component {
     if (
       nextProps.month.format('YYYY MM') !==
       this.props.month.format('YYYY MM') ||
-      (nextProps.type==="jalaali" && nextProps.month.format('jYYYY jMM') !==
+      (nextProps.type === 'jalaali' && nextProps.month.format('jYYYY jMM') !==
       this.props.month.format('jYYYY jMM'))
     ) {
       return true;
