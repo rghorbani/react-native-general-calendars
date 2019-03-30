@@ -18,10 +18,13 @@ function sameMonth(type, a, b) {
 }
 
 function sameDate(type, a, b) {
-  return a instanceof Moment && b instanceof Moment &&
+  return (
+    a instanceof Moment &&
+    b instanceof Moment &&
     a.year() === b.year() &&
     a.month() === b.month() &&
-    a.date() === b.date();
+    a.date() === b.date()
+  );
 }
 
 function isGTE(type, a, b) {
@@ -76,5 +79,5 @@ module.exports = {
   page,
   fromTo,
   isLTE,
-  isGTE
+  isGTE,
 };

@@ -8,7 +8,12 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Platform, StyleSheet, TouchableOpacity, View } = require('react-native');
+const {
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} = require('react-native');
 const { Text } = require('react-native-common');
 
 const { shouldUpdate } = require('../../../component-updater');
@@ -37,7 +42,13 @@ class Day extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return shouldUpdate(this.props, nextProps, ['state', 'children', 'marking', 'onPress', 'onLongPress']);
+    return shouldUpdate(this.props, nextProps, [
+      'state',
+      'children',
+      'marking',
+      'onPress',
+      'onLongPress',
+    ]);
   }
 
   renderPeriods(marking) {
@@ -100,7 +111,8 @@ class Day extends React.Component {
       <View
         style={{
           alignSelf: 'stretch',
-        }}>
+        }}
+      >
         <TouchableOpacity style={containerStyle} onPress={this.onDayPress}>
           <Text allowFontScaling={false} style={textStyle}>
             {String(this.props.children)}
@@ -109,7 +121,8 @@ class Day extends React.Component {
         <View
           style={{
             alignSelf: 'stretch',
-          }}>
+          }}
+        >
           {periods}
         </View>
       </View>

@@ -85,7 +85,7 @@ class Calendar extends React.Component {
     // Handler which gets executed when press arrow icon left. It receive a callback can go back month
     onPressArrowLeft: PropTypes.func,
     // Handler which gets executed when press arrow icon left. It receive a callback can go next month
-    onPressArrowRight: PropTypes.func
+    onPressArrowRight: PropTypes.func,
   };
 
   static defaultProps = {
@@ -119,40 +119,56 @@ class Calendar extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const current = parseDate(this.props.type, nextProps.current);
-    if (current && current.format('YYYY MM') !== this.state.currentMonth.format('YYYY MM')) {
+    if (
+      current &&
+      current.format('YYYY MM') !== this.state.currentMonth.format('YYYY MM')
+    ) {
       this.setState({
-        currentMonth: current.clone()
+        currentMonth: current.clone(),
       });
     }
   }
 
   updateMonth(day, doNotTriggerListeners) {
-    if ((this.props.type !== 'jalaali' && day.format('YYYY MM') === this.state.currentMonth.format('YYYY MM')) ||
-    (this.props.type === 'jalaali' && day.format('jYYYY jMM') ===
-    this.state.currentMonth.format('jYYYY jMM'))) {
+    if (
+      (this.props.type !== 'jalaali' &&
+        day.format('YYYY MM') === this.state.currentMonth.format('YYYY MM')) ||
+      (this.props.type === 'jalaali' &&
+        day.format('jYYYY jMM') === this.state.currentMonth.format('jYYYY jMM'))
+    ) {
       return;
     }
-    this.setState({
-      currentMonth: day.clone()
-    }, () => {
-      if (!doNotTriggerListeners) {
-        const currMont = this.state.currentMonth.clone();
-        if (this.props.onMonthChange) {
-          this.props.onMonthChange(xdateToData(this.props.type, currMont));
+    this.setState(
+      {
+        currentMonth: day.clone(),
+      },
+      () => {
+        if (!doNotTriggerListeners) {
+          const currMont = this.state.currentMonth.clone();
+          if (this.props.onMonthChange) {
+            this.props.onMonthChange(xdateToData(this.props.type, currMont));
+          }
+          if (this.props.onVisibleMonthsChange) {
+            this.props.onVisibleMonthsChange([
+              xdateToData(this.props.type, currMont),
+            ]);
+          }
         }
-        if (this.props.onVisibleMonthsChange) {
-          this.props.onVisibleMonthsChange([xdateToData(this.props.type, currMont)]);
-        }
-      }
-    });
+      },
+    );
   }
 
   _handleDayInteraction(date, interaction) {
     const day = parseDate(this.props.type, date);
     const minDate = parseDate(this.props.type, this.props.minDate);
     const maxDate = parseDate(this.props.type, this.props.maxDate);
-    if (!(minDate && !dateutils.isGTE(this.props.type, day, minDate)) && !(maxDate && !dateutils.isLTE(this.props.type, day, maxDate))) {
-      const shouldUpdateMonth = this.props.disableMonthChange === undefined || !this.props.disableMonthChange;
+    if (
+      !(minDate && !dateutils.isGTE(this.props.type, day, minDate)) &&
+      !(maxDate && !dateutils.isLTE(this.props.type, day, maxDate))
+    ) {
+      const shouldUpdateMonth =
+        this.props.disableMonthChange === undefined ||
+        !this.props.disableMonthChange;
       if (shouldUpdateMonth) {
         this.updateMonth(day);
       }
@@ -198,15 +214,23 @@ class Calendar extends React.Component {
     let state = '';
     if (this.props.disabledByDefault) {
       state = 'disabled';
-    } else if ((minDate && !dateutils.isGTE(this.props.type, day, minDate)) || (maxDate && !dateutils.isLTE(this.props.type, day, maxDate))) {
+    } else if (
+      (minDate && !dateutils.isGTE(this.props.type, day, minDate)) ||
+      (maxDate && !dateutils.isLTE(this.props.type, day, maxDate))
+    ) {
       state = 'disabled';
-    } else if (!dateutils.sameMonth(this.props.type, day, this.state.currentMonth)) {
+    } else if (
+      !dateutils.sameMonth(this.props.type, day, this.state.currentMonth)
+    ) {
       state = 'disabled';
     } else if (dateutils.sameDate(this.props.type, day, Moment())) {
       state = 'today';
     }
-    if (!dateutils.sameMonth(this.props.type, day, this.state.currentMonth) && this.props.hideExtraDays) {
-      return (<View key={id} style={{flex: 1}}/>);
+    if (
+      !dateutils.sameMonth(this.props.type, day, this.state.currentMonth) &&
+      this.props.hideExtraDays
+    ) {
+      return <View key={id} style={{ flex: 1 }} />;
     }
     const DayComp = this.getDayComponent();
     let date;
@@ -216,7 +240,7 @@ class Calendar extends React.Component {
       date = day.date();
     }
     return (
-      <View style={{flex: 1, alignItems: 'center'}} key={id}>
+      <View style={{ flex: 1, alignItems: 'center' }} key={id}>
         <DayComp
           key={id}
           state={state}
@@ -240,16 +264,16 @@ class Calendar extends React.Component {
     }
 
     switch (this.props.markingType) {
-    case 'period':
-      return UnitDay;
-    case 'multi-dot':
-      return MultiDotDay;
-    case 'multi-period':
-      return MultiPeriodDay;
-    case 'custom':
-      return SingleDay;
-    default:
-      return Day;
+      case 'period':
+        return UnitDay;
+      case 'multi-dot':
+        return MultiDotDay;
+      case 'multi-period':
+        return MultiPeriodDay;
+      case 'custom':
+        return SingleDay;
+      default:
+        return Day;
     }
   }
 
@@ -257,7 +281,8 @@ class Calendar extends React.Component {
     if (!this.props.markedDates) {
       return false;
     }
-    const dates = this.props.markedDates[day.format('YYYY-MM-DD')] || EmptyArray;
+    const dates =
+      this.props.markedDates[day.format('YYYY-MM-DD')] || EmptyArray;
     if (dates.length || dates) {
       return dates;
     } else {
@@ -265,8 +290,18 @@ class Calendar extends React.Component {
     }
   }
 
-  renderWeekNumber (weekNumber) {
-    return <Day key={`week-${weekNumber}`} type={this.props.type} theme={this.props.theme} marking={{disableTouchEvent: true}} state="disabled">{weekNumber}</Day>;
+  renderWeekNumber(weekNumber) {
+    return (
+      <Day
+        key={`week-${weekNumber}`}
+        type={this.props.type}
+        theme={this.props.theme}
+        marking={{ disableTouchEvent: true }}
+        state="disabled"
+      >
+        {weekNumber}
+      </Day>
+    );
   }
 
   renderWeek(days, id) {
@@ -283,11 +318,19 @@ class Calendar extends React.Component {
       }
     }
 
-    return (<View style={this.style.week} key={id}>{week}</View>);
+    return (
+      <View style={this.style.week} key={id}>
+        {week}
+      </View>
+    );
   }
 
   render() {
-    const days = dateutils.page(this.props.type, this.state.currentMonth, this.props.firstDay);
+    const days = dateutils.page(
+      this.props.type,
+      this.state.currentMonth,
+      this.props.firstDay,
+    );
     const weeks = [];
     while (days.length) {
       weeks.push(this.renderWeek(days.splice(0, 7), weeks.length));
@@ -295,9 +338,16 @@ class Calendar extends React.Component {
     let indicator;
     const current = parseDate(this.props.type, this.props.current);
     if (current) {
-      const lastMonthOfDay = current.clone().add(1, 'months').date(1).add(-1, 'days').format('YYYY-MM-DD');
-      if (this.props.displayLoadingIndicator &&
-          !(this.props.markedDates && this.props.markedDates[lastMonthOfDay])) {
+      const lastMonthOfDay = current
+        .clone()
+        .add(1, 'months')
+        .date(1)
+        .add(-1, 'days')
+        .format('YYYY-MM-DD');
+      if (
+        this.props.displayLoadingIndicator &&
+        !(this.props.markedDates && this.props.markedDates[lastMonthOfDay])
+      ) {
         indicator = true;
       }
     }
@@ -320,14 +370,15 @@ class Calendar extends React.Component {
           onPressArrowRight={this.props.onPressArrowRight}
         />
         <View style={this.style.monthView}>{weeks}</View>
-      </View>);
+      </View>
+    );
   }
 }
 
 const STYLESHEET_ID = 'stylesheet.calendar.main';
 
-function styleConstructor(theme = {}, {rtl, type}) {
-  const appStyle = {...defaultStyle, ...theme};
+function styleConstructor(theme = {}, { rtl, type }) {
+  const appStyle = { ...defaultStyle, ...theme };
   if (rtl === undefined) {
     if (type === 'jalaali') {
       rtl = true;
@@ -350,7 +401,7 @@ function styleConstructor(theme = {}, {rtl, type}) {
       flexDirection: rtl ? 'row-reverse' : 'row',
       justifyContent: 'space-around',
     },
-    ...(theme[STYLESHEET_ID] || {})
+    ...(theme[STYLESHEET_ID] || {}),
   });
 }
 

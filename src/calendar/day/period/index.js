@@ -33,7 +33,7 @@ class Day extends React.Component {
 
   constructor(props) {
     super(props);
-    this.theme = {...defaultStyle, ...(props.theme || {})};
+    this.theme = { ...defaultStyle, ...(props.theme || {}) };
     this.style = styleConstructor(props.theme, props);
     this.markingStyle = this.getDrawingStyle(props.marking || []);
     this.onDayPress = this.onDayPress.bind(this);
@@ -56,11 +56,16 @@ class Day extends React.Component {
       return true;
     }
 
-    return shouldUpdate(this.props, nextProps, ['state', 'children', 'onPress', 'onLongPress']);
+    return shouldUpdate(this.props, nextProps, [
+      'state',
+      'children',
+      'onPress',
+      'onLongPress',
+    ]);
   }
 
   getDrawingStyle(marking) {
-    const defaultStyle = {textStyle: {}};
+    const defaultStyle = { textStyle: {} };
     if (!marking) {
       return defaultStyle;
     }
@@ -69,7 +74,7 @@ class Day extends React.Component {
     } else if (marking.selected) {
       defaultStyle.textStyle.color = this.theme.selectedDayTextColor;
     }
-    const resultStyle = ([marking]).reduce((prev, next) => {
+    const resultStyle = [marking].reduce((prev, next) => {
       if (next.quickAction) {
         if (next.first || next.last) {
           prev.containerStyle = this.style.firstQuickAction;
@@ -95,17 +100,17 @@ class Day extends React.Component {
       }
       if (next.startingDay) {
         prev.startingDay = {
-          color
+          color,
         };
       }
       if (next.endingDay) {
         prev.endingDay = {
-          color
+          color,
         };
       }
       if (!next.startingDay && !next.endingDay) {
         prev.day = {
-          color
+          color,
         };
       }
       if (next.textColor) {
@@ -133,7 +138,7 @@ class Day extends React.Component {
 
     if (this.props.marking) {
       containerStyle.push({
-        borderRadius: 17
+        borderRadius: 17,
       });
 
       const flags = this.markingStyle;
@@ -152,45 +157,45 @@ class Day extends React.Component {
 
       if (flags.startingDay && !flags.endingDay) {
         leftFillerStyle = {
-          backgroundColor: this.theme.calendarBackground
+          backgroundColor: this.theme.calendarBackground,
         };
         rightFillerStyle = {
-          backgroundColor: flags.startingDay.color
+          backgroundColor: flags.startingDay.color,
         };
         containerStyle.push({
-          backgroundColor: flags.startingDay.color
+          backgroundColor: flags.startingDay.color,
         });
       } else if (flags.endingDay && !flags.startingDay) {
         rightFillerStyle = {
-          backgroundColor: this.theme.calendarBackground
+          backgroundColor: this.theme.calendarBackground,
         };
         leftFillerStyle = {
-          backgroundColor: flags.endingDay.color
+          backgroundColor: flags.endingDay.color,
         };
         containerStyle.push({
-          backgroundColor: flags.endingDay.color
+          backgroundColor: flags.endingDay.color,
         });
       } else if (flags.day) {
-        leftFillerStyle = {backgroundColor: flags.day.color};
-        rightFillerStyle = {backgroundColor: flags.day.color};
+        leftFillerStyle = { backgroundColor: flags.day.color };
+        rightFillerStyle = { backgroundColor: flags.day.color };
         // #177 bug
-        fillerStyle = {backgroundColor: flags.day.color};
+        fillerStyle = { backgroundColor: flags.day.color };
       } else if (flags.endingDay && flags.startingDay) {
         rightFillerStyle = {
-          backgroundColor: this.theme.calendarBackground
+          backgroundColor: this.theme.calendarBackground,
         };
         leftFillerStyle = {
-          backgroundColor: this.theme.calendarBackground
+          backgroundColor: this.theme.calendarBackground,
         };
         containerStyle.push({
-          backgroundColor: flags.endingDay.color
+          backgroundColor: flags.endingDay.color,
         });
       }
 
       fillers = (
         <View style={[this.style.fillers, fillerStyle]}>
-          <View style={[this.style.leftFiller, leftFillerStyle]}/>
-          <View style={[this.style.rightFiller, rightFillerStyle]}/>
+          <View style={[this.style.leftFiller, leftFillerStyle]} />
+          <View style={[this.style.rightFiller, rightFillerStyle]} />
         </View>
       );
     }
@@ -203,7 +208,9 @@ class Day extends React.Component {
         <View style={this.style.wrapper}>
           {fillers}
           <View style={containerStyle}>
-            <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
+            <Text allowFontScaling={false} style={textStyle}>
+              {String(this.props.children)}
+            </Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -215,7 +222,7 @@ const STYLESHEET_ID = 'stylesheet.day.period';
 
 const FILLER_HEIGHT = 34;
 
-function styleConstructor(theme = {}, {rtl, type}) {
+function styleConstructor(theme = {}, { rtl, type }) {
   if (rtl === undefined) {
     if (type === 'jalaali') {
       rtl = true;
@@ -223,33 +230,33 @@ function styleConstructor(theme = {}, {rtl, type}) {
       rtl = false;
     }
   }
-  const appStyle = {...defaultStyle, ...theme};
+  const appStyle = { ...defaultStyle, ...theme };
   return StyleSheet.create({
     wrapper: {
       alignItems: 'center',
       alignSelf: 'stretch',
-      marginLeft: -1
+      marginLeft: -1,
     },
     base: {
       //borderWidth: 1,
       width: 38,
       height: FILLER_HEIGHT,
-      alignItems: 'center'
+      alignItems: 'center',
     },
     fillers: {
       position: 'absolute',
       height: FILLER_HEIGHT,
       flexDirection: rtl ? 'row-reverse' : 'row',
       left: 0,
-      right: 0
+      right: 0,
     },
     leftFiller: {
       height: FILLER_HEIGHT,
-      flex: 1
+      flex: 1,
     },
     rightFiller: {
       height: FILLER_HEIGHT,
-      flex: 1
+      flex: 1,
     },
     text: {
       marginTop: 7,
@@ -257,7 +264,7 @@ function styleConstructor(theme = {}, {rtl, type}) {
       fontFamily: appStyle.textDayFontFamily,
       fontWeight: '300',
       color: appStyle.dayTextColor || '#2d4150',
-      backgroundColor: 'rgba(255, 255, 255, 0)'
+      backgroundColor: 'rgba(255, 255, 255, 0)',
     },
     today: {
       backgroundColor: appStyle.todayBackgroundColor,
@@ -268,27 +275,27 @@ function styleConstructor(theme = {}, {rtl, type}) {
       //color: appStyle.textLinkColor
     },
     disabledText: {
-      color: appStyle.textDisabledColor
+      color: appStyle.textDisabledColor,
     },
     quickAction: {
       backgroundColor: 'white',
       borderWidth: 1,
-      borderColor: '#c1e4fe'
+      borderColor: '#c1e4fe',
     },
     quickActionText: {
       marginTop: 6,
-      color: appStyle.textColor
+      color: appStyle.textColor,
     },
     firstQuickAction: {
-      backgroundColor: appStyle.textLinkColor
+      backgroundColor: appStyle.textLinkColor,
     },
     firstQuickActionText: {
-      color: 'white'
+      color: 'white',
     },
     naText: {
-      color: '#b6c1cd'
+      color: '#b6c1cd',
     },
-    ...(theme[STYLESHEET_ID] || {})
+    ...(theme[STYLESHEET_ID] || {}),
   });
 }
 

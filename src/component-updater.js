@@ -20,5 +20,5 @@ function shouldUpdate(a, b, paths) {
 }
 
 module.exports = {
-  shouldUpdate
+  shouldUpdate,
 };

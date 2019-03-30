@@ -43,7 +43,10 @@ class ReservationListItem extends React.Component {
 
   renderDate(date, item) {
     if (this.props.renderDay) {
-      return this.props.renderDay(date ? xdateToData(this.props.type, date) : undefined, item);
+      return this.props.renderDay(
+        date ? xdateToData(this.props.type, date) : undefined,
+        item,
+      );
     }
     let todayDate;
     if (this.props.type === 'jalaali') {
@@ -51,24 +54,29 @@ class ReservationListItem extends React.Component {
     } else {
       todayDate = Moment.utc();
     }
-    const today = dateutils.sameDate(this.props.type, date, todayDate) ? this.styles.today : undefined;
+    const today = dateutils.sameDate(this.props.type, date, todayDate)
+      ? this.styles.today
+      : undefined;
     if (date) {
-      const jDate = this.props.type === 'jalaali' ? jMoment(date).jDate() : date.date();
+      const jDate =
+        this.props.type === 'jalaali' ? jMoment(date).jDate() : date.date();
       return (
         <View style={this.styles.day}>
-          <Text allowFontScaling={false} style={[this.styles.dayNum, today]}>{jDate}</Text>
-          <Text allowFontScaling={false} style={[this.styles.dayText, today]}>{dateutils.weekDayNames(this.props.type)[date.day()]}</Text>
+          <Text allowFontScaling={false} style={[this.styles.dayNum, today]}>
+            {jDate}
+          </Text>
+          <Text allowFontScaling={false} style={[this.styles.dayText, today]}>
+            {dateutils.weekDayNames(this.props.type)[date.day()]}
+          </Text>
         </View>
       );
     } else {
-      return (
-        <View style={this.styles.day} />
-      );
+      return <View style={this.styles.day} />;
     }
   }
 
   render() {
-    const {reservation, date} = this.props.item;
+    const { reservation, date } = this.props.item;
     let content;
     if (reservation) {
       const firstItem = date ? true : false;
@@ -79,9 +87,7 @@ class ReservationListItem extends React.Component {
     return (
       <View style={this.styles.container}>
         {this.renderDate(date, reservation)}
-        <View style={{flex:1}}>
-          {content}
-        </View>
+        <View style={{ flex: 1 }}>{content}</View>
       </View>
     );
   }
@@ -90,8 +96,8 @@ class ReservationListItem extends React.Component {
 const STYLESHEET_ID = 'stylesheet.agenda.list';
 
 function styleConstructor(theme = {}) {
-  const appStyle = {...defaultStyle, ...theme};
-  return  StyleSheet.create({
+  const appStyle = { ...defaultStyle, ...theme };
+  return StyleSheet.create({
     container: {
       flexDirection: 'row',
     },
@@ -116,7 +122,7 @@ function styleConstructor(theme = {}) {
     today: {
       color: appStyle.agendaTodayColor,
     },
-    ...(theme[STYLESHEET_ID] || {})
+    ...(theme[STYLESHEET_ID] || {}),
   });
 }
 

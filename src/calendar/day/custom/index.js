@@ -8,7 +8,12 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Platform, StyleSheet, Text, TouchableOpacity } = require('react-native');
+const {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} = require('react-native');
 
 const { shouldUpdate } = require('../../../component-updater');
 const defaultStyle = require('../../../style');
@@ -22,7 +27,7 @@ class Day extends React.Component {
     theme: PropTypes.object,
     marking: PropTypes.any,
     onPress: PropTypes.func,
-    date: PropTypes.object
+    date: PropTypes.object,
   };
 
   constructor(props) {
@@ -40,7 +45,13 @@ class Day extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return shouldUpdate(this.props, nextProps, ['state', 'children', 'marking', 'onPress', 'onLongPress']);
+    return shouldUpdate(this.props, nextProps, [
+      'state',
+      'children',
+      'marking',
+      'onPress',
+      'onLongPress',
+    ]);
   }
 
   render() {
@@ -50,10 +61,13 @@ class Day extends React.Component {
     let marking = this.props.marking || {};
     if (marking && marking.constructor === Array && marking.length) {
       marking = {
-        marking: true
+        marking: true,
       };
     }
-    const isDisabled = typeof marking.disabled !== 'undefined' ? marking.disabled : this.props.state === 'disabled';
+    const isDisabled =
+      typeof marking.disabled !== 'undefined'
+        ? marking.disabled
+        : this.props.state === 'disabled';
 
     if (marking.selected) {
       containerStyle.push(this.style.selected);
@@ -85,7 +99,9 @@ class Day extends React.Component {
         activeOpacity={marking.activeOpacity}
         disabled={marking.disableTouchEvent}
       >
-        <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
+        <Text allowFontScaling={false} style={textStyle}>
+          {String(this.props.children)}
+        </Text>
       </TouchableOpacity>
     );
   }
@@ -94,12 +110,12 @@ class Day extends React.Component {
 const STYLESHEET_ID = 'stylesheet.day.single';
 
 function styleConstructor(theme = {}) {
-  const appStyle = {...defaultStyle, ...theme};
+  const appStyle = { ...defaultStyle, ...theme };
   return StyleSheet.create({
     base: {
       width: 32,
       height: 32,
-      alignItems: 'center'
+      alignItems: 'center',
     },
     text: {
       marginTop: Platform.OS === 'android' ? 4 : 6,
@@ -107,28 +123,28 @@ function styleConstructor(theme = {}) {
       fontFamily: appStyle.textDayFontFamily,
       fontWeight: '300',
       color: appStyle.dayTextColor,
-      backgroundColor: 'rgba(255, 255, 255, 0)'
+      backgroundColor: 'rgba(255, 255, 255, 0)',
     },
     alignedText: {
-      marginTop: Platform.OS === 'android' ? 4 : 6
+      marginTop: Platform.OS === 'android' ? 4 : 6,
     },
     selected: {
       backgroundColor: appStyle.selectedDayBackgroundColor,
-      borderRadius: 16
+      borderRadius: 16,
     },
     today: {
       backgroundColor: appStyle.todayBackgroundColor,
     },
     todayText: {
-      color: appStyle.todayTextColor
+      color: appStyle.todayTextColor,
     },
     selectedText: {
-      color: appStyle.selectedDayTextColor
+      color: appStyle.selectedDayTextColor,
     },
     disabledText: {
-      color: appStyle.textDisabledColor
+      color: appStyle.textDisabledColor,
     },
-    ...(theme[STYLESHEET_ID] || {})
+    ...(theme[STYLESHEET_ID] || {}),
   });
 }
 

@@ -16,7 +16,7 @@ import defaultStyle from '../../style';
 import { weekDayNames } from '../../dateutils';
 import {
   CHANGE_MONTH_LEFT_ARROW,
-  CHANGE_MONTH_RIGHT_ARROW
+  CHANGE_MONTH_RIGHT_ARROW,
 } from '../../testIDs';
 
 class CalendarHeader extends React.Component {
@@ -31,7 +31,7 @@ class CalendarHeader extends React.Component {
     hideDayNames: PropTypes.bool,
     weekNumbers: PropTypes.bool,
     onPressArrowLeft: PropTypes.func,
-    onPressArrowRight: PropTypes.func
+    onPressArrowRight: PropTypes.func,
   };
 
   static defaultProps = {
@@ -58,9 +58,10 @@ class CalendarHeader extends React.Component {
   shouldComponentUpdate(nextProps) {
     if (
       nextProps.month.format('YYYY MM') !==
-      this.props.month.format('YYYY MM') ||
-      (nextProps.type === 'jalaali' && nextProps.month.format('jYYYY jMM') !==
-      this.props.month.format('jYYYY jMM'))
+        this.props.month.format('YYYY MM') ||
+      (nextProps.type === 'jalaali' &&
+        nextProps.month.format('jYYYY jMM') !==
+          this.props.month.format('jYYYY jMM'))
     ) {
       return true;
     }
@@ -74,7 +75,7 @@ class CalendarHeader extends React.Component {
   }
 
   onPressLeft() {
-    const {onPressArrowLeft} = this.props;
+    const { onPressArrowLeft } = this.props;
     if (typeof onPressArrowLeft === 'function') {
       return onPressArrowLeft(this.substractMonth);
     }
@@ -82,7 +83,7 @@ class CalendarHeader extends React.Component {
   }
 
   onPressRight() {
-    const {onPressArrowRight} = this.props;
+    const { onPressArrowRight } = this.props;
     if (typeof onPressArrowRight === 'function') {
       return onPressArrowRight(this.addMonth);
     }
@@ -98,30 +99,34 @@ class CalendarHeader extends React.Component {
         <TouchableOpacity
           onPress={this.onPressLeft}
           style={this.style.arrow}
-          hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
+          hitSlop={{ left: 20, right: 20, top: 20, bottom: 20 }}
           testID={CHANGE_MONTH_LEFT_ARROW}
         >
-          {this.props.renderArrow
-            ? this.props.renderArrow('left')
-            : <Image
-                source={require('../img/previous.png')}
-                style={this.style.arrowImage}
-              />}
+          {this.props.renderArrow ? (
+            this.props.renderArrow('left')
+          ) : (
+            <Image
+              source={require('../img/previous.png')}
+              style={this.style.arrowImage}
+            />
+          )}
         </TouchableOpacity>
       );
       rightArrow = (
         <TouchableOpacity
           onPress={this.onPressRight}
           style={this.style.arrow}
-          hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
+          hitSlop={{ left: 20, right: 20, top: 20, bottom: 20 }}
           testID={CHANGE_MONTH_RIGHT_ARROW}
         >
-          {this.props.renderArrow
-            ? this.props.renderArrow('right')
-            : <Image
-                source={require('../img/next.png')}
-                style={this.style.arrowImage}
-              />}
+          {this.props.renderArrow ? (
+            this.props.renderArrow('right')
+          ) : (
+            <Image
+              source={require('../img/next.png')}
+              style={this.style.arrowImage}
+            />
+          )}
         </TouchableOpacity>
       );
     }
@@ -134,22 +139,36 @@ class CalendarHeader extends React.Component {
         <View style={this.style.header}>
           {leftArrow}
           <View style={{ flexDirection: 'row' }}>
-            <Text allowFontScaling={false} style={this.style.monthText} accessibilityTraits="header">
+            <Text
+              allowFontScaling={false}
+              style={this.style.monthText}
+              accessibilityTraits="header"
+            >
               {this.props.month.format(this.props.monthFormat)}
             </Text>
             {indicator}
           </View>
           {rightArrow}
         </View>
-        {
-          !this.props.hideDayNames &&
+        {!this.props.hideDayNames && (
           <View style={this.style.week}>
-            {this.props.weekNumbers && <Text allowFontScaling={false} style={this.style.dayHeader} />}
+            {this.props.weekNumbers && (
+              <Text allowFontScaling={false} style={this.style.dayHeader} />
+            )}
             {weekDaysNames.map((day, idx) => (
-              <Text allowFontScaling={false} key={idx} accessible={false} style={this.style.dayHeader} numberOfLines={1} importantForAccessibility="no">{day}</Text>
+              <Text
+                allowFontScaling={false}
+                key={idx}
+                accessible={false}
+                style={this.style.dayHeader}
+                numberOfLines={1}
+                importantForAccessibility="no"
+              >
+                {day}
+              </Text>
             ))}
           </View>
-        }
+        )}
       </View>
     );
   }
@@ -157,8 +176,8 @@ class CalendarHeader extends React.Component {
 
 const STYLESHEET_ID = 'stylesheet.calendar.header';
 
-function styleConstructor(theme = {}, {rtl, type}) {
-  const appStyle = {...defaultStyle, ...theme};
+function styleConstructor(theme = {}, { rtl, type }) {
+  const appStyle = { ...defaultStyle, ...theme };
   if (rtl === undefined) {
     if (type === 'jalaali') {
       rtl = true;
@@ -172,33 +191,33 @@ function styleConstructor(theme = {}, {rtl, type}) {
       justifyContent: 'space-between',
       paddingLeft: 10,
       paddingRight: 10,
-      alignItems: 'center'
+      alignItems: 'center',
     },
     monthText: {
       fontSize: appStyle.textMonthFontSize,
       fontFamily: appStyle.textMonthFontFamily,
       fontWeight: appStyle.textMonthFontWeight,
       color: appStyle.monthTextColor,
-      margin: 10
+      margin: 10,
     },
     arrow: {
-      padding: 10
+      padding: 10,
     },
     arrowImage: {
-      transform: rtl ? [{ rotate: '180deg'}] : undefined,
+      transform: rtl ? [{ rotate: '180deg' }] : undefined,
       ...Platform.select({
         ios: {
-          tintColor: appStyle.arrowColor
+          tintColor: appStyle.arrowColor,
         },
         android: {
-          tintColor: appStyle.arrowColor
-        }
-      })
+          tintColor: appStyle.arrowColor,
+        },
+      }),
     },
     week: {
       marginTop: 7,
       flexDirection: rtl ? 'row-reverse' : 'row',
-      justifyContent: 'space-around'
+      justifyContent: 'space-around',
     },
     dayHeader: {
       marginTop: 2,
@@ -207,9 +226,9 @@ function styleConstructor(theme = {}, {rtl, type}) {
       textAlign: 'center',
       fontSize: appStyle.textDayHeaderFontSize,
       fontFamily: appStyle.textDayHeaderFontFamily,
-      color: appStyle.textSectionTitleColor
+      color: appStyle.textSectionTitleColor,
     },
-    ...(theme[STYLESHEET_ID] || {})
+    ...(theme[STYLESHEET_ID] || {}),
   });
 }
 

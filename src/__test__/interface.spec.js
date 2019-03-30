@@ -29,7 +29,7 @@ describe('calendar interface', () => {
     });
 
     it('should expect object with UTC timestamp as argument', () => {
-      const date = iface.parseDate('gregorian', {timestamp: 1479832134398});
+      const date = iface.parseDate('gregorian', { timestamp: 1479832134398 });
       expect(date.valueOf()).toEqual(1479832134398);
       expect(date.utcOffset()).toEqual(0);
     });
@@ -51,7 +51,7 @@ describe('calendar interface', () => {
       const testDate = {
         year: 2015,
         month: 5,
-        day: 6
+        day: 6,
       };
       const date = iface.parseDate('gregorian', testDate);
       expect(date.format('YYYY-MM-DD')).toEqual('2015-05-06');
@@ -62,14 +62,14 @@ describe('calendar interface', () => {
     it('should convert xdate to data', () => {
       const time = 1479772800000;
       const testDate = Moment.utc(time);
-      expect((testDate).format()).toEqual('2016-11-22T00:00:00Z');
+      expect(testDate.format()).toEqual('2016-11-22T00:00:00Z');
       const data = iface.xdateToData('gregorian', testDate);
       expect(data).toEqual({
         year: 2016,
         month: 11,
         day: 22,
         timestamp: 1479772800000,
-        dateString: '2016-11-22'
+        dateString: '2016-11-22',
       });
     });
   });

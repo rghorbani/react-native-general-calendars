@@ -9,16 +9,22 @@
 const Moment = require('moment');
 
 function sameMonth(a, b) {
-  return a instanceof Moment && b instanceof Moment &&
+  return (
+    a instanceof Moment &&
+    b instanceof Moment &&
     a.year() === b.year() &&
-    a.month() === b.month();
+    a.month() === b.month()
+  );
 }
 
 function sameDate(a, b) {
-  return a instanceof Moment && b instanceof Moment &&
+  return (
+    a instanceof Moment &&
+    b instanceof Moment &&
     a.year() === b.year() &&
     a.month() === b.month() &&
-    a.date() === b.date();
+    a.date() === b.date()
+  );
 }
 
 function isGTE(a, b) {
@@ -31,15 +37,17 @@ function isLTE(a, b) {
 
 function fromTo(a, b) {
   const days = [];
-  let from = +a, to = +b;
+  let from = +a,
+    to = +b;
   for (; from <= to; from = new Moment(from).add(1, 'days').valueOf()) {
-    days.push((new Moment(from)));
+    days.push(new Moment(from));
   }
   return days;
 }
 
 function month(xd) {
-  const year = xd.year(), month = xd.month();
+  const year = xd.year(),
+    month = xd.month();
   const days = xd.daysInMonth();
 
   const firstDay = Moment.utc([year, month, 1, 0, 0, 0]);
@@ -52,7 +60,9 @@ function weekDayNames(firstDayOfWeek = 0) {
   let weekDaysNames = Moment.weekdaysShort();
   const dayShift = firstDayOfWeek % 7;
   if (dayShift) {
-    weekDaysNames = weekDaysNames.slice(dayShift).concat(weekDaysNames.slice(0, dayShift));
+    weekDaysNames = weekDaysNames
+      .slice(dayShift)
+      .concat(weekDaysNames.slice(0, dayShift));
   }
   return weekDaysNames;
 }
@@ -62,9 +72,10 @@ function page(xd, firstDayOfWeek) {
   // for (let i = 0; i < days.length; i++) {
   //   console.log(days[i].format())
   // }
-  let before = [], after = [];
+  let before = [],
+    after = [];
 
-  const fdow = ((7 + firstDayOfWeek) % 7) || 7;
+  const fdow = (7 + firstDayOfWeek) % 7 || 7;
   const ldow = (fdow + 6) % 7;
 
   firstDayOfWeek = firstDayOfWeek || 0;
@@ -99,5 +110,5 @@ module.exports = {
   page,
   fromTo,
   isLTE,
-  isGTE
+  isGTE,
 };

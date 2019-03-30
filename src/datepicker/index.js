@@ -10,7 +10,13 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const _ = require('lodash');
 const { Text } = require('react-native');
-const { Button, Constants, Colors, Picker, View } = require('react-native-common');
+const {
+  Button,
+  Constants,
+  Colors,
+  Picker,
+  View,
+} = require('react-native-common');
 
 const DatePickerModal = require('./DatePickerModal');
 const Calendar = require('../calendar');
@@ -31,7 +37,11 @@ class DatePicker extends Picker {
     /**
      * picker current value in the shape of {value: ..., label: ...}, for custom shape use 'getItemValue' prop
      */
-    value: PropTypes.oneOfType([ItemType, PropTypes.arrayOf(ItemType), PropTypes.object]),
+    value: PropTypes.oneOfType([
+      ItemType,
+      PropTypes.arrayOf(ItemType),
+      PropTypes.object,
+    ]),
   };
 
   static defaultProps = {
@@ -48,7 +58,7 @@ class DatePicker extends Picker {
   }
 
   toggleItemSelection(item) {
-    const {value} = this.state;
+    const { value } = this.state;
     const newValue = _.xorBy(value, [item], 'value');
     this.setState({
       value: newValue,
@@ -69,9 +79,12 @@ class DatePicker extends Picker {
   }
 
   getLabel() {
-    const {value} = this.state;
+    const { value } = this.state;
     if (_.isArray(value)) {
-      return _.chain(value).map('label').join(' - ').value();
+      return _.chain(value)
+        .map('label')
+        .join(' - ')
+        .value();
     }
     return _.get(value, 'dateString');
   }
@@ -82,8 +95,8 @@ class DatePicker extends Picker {
   }
 
   renderExpandableInput() {
-    const {value} = this.state;
-    const {placeholder, style} = this.props;
+    const { value } = this.state;
+    const { placeholder, style } = this.props;
     const typography = this.getTypography();
     const color = this.extractColorValue() || Colors.dark10;
     const label = this.getLabel();
@@ -94,9 +107,9 @@ class DatePicker extends Picker {
         style={[
           this.styles.input,
           typography,
-          {color},
+          { color },
           style,
-          {height: Constants.isAndroid ? typography.lineHeight : undefined},
+          { height: Constants.isAndroid ? typography.lineHeight : undefined },
           shouldShowPlaceholder && this.styles.placeholder,
         ]}
         numberOfLines={3}
@@ -108,8 +121,8 @@ class DatePicker extends Picker {
   }
 
   renderExpandableModal() {
-    const {enableModalBlur, topBarProps, calendarProps} = this.props;
-    const {showExpandableModal} = this.state;
+    const { enableModalBlur, topBarProps, calendarProps } = this.props;
+    const { showExpandableModal } = this.state;
     return (
       <DatePickerModal
         visible={showExpandableModal}
@@ -119,18 +132,15 @@ class DatePicker extends Picker {
           onCancel: this.cancelSelect,
         }}
       >
-        <Calendar
-          {...calendarProps}
-          onDayPress={this.onDoneSelecting}
-        />
+        <Calendar {...calendarProps} onDayPress={this.onDoneSelecting} />
       </DatePickerModal>
     );
   }
 
   render() {
-    const {renderPicker, testID} = this.props;
+    const { renderPicker, testID } = this.props;
     if (_.isFunction(renderPicker)) {
-      const {value} = this.state;
+      const { value } = this.state;
       return (
         <View left>
           <Button link onPress={this.handlePickerOnPress} testID={testID}>

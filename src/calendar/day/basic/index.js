@@ -24,7 +24,7 @@ class Day extends React.Component {
     marking: PropTypes.any,
     onPress: PropTypes.func,
     onLongPress: PropTypes.func,
-    date: PropTypes.object
+    date: PropTypes.object,
   };
 
   constructor(props) {
@@ -43,7 +43,13 @@ class Day extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return shouldUpdate(this.props, nextProps, ['state', 'children', 'marking', 'onPress', 'onLongPress']);
+    return shouldUpdate(this.props, nextProps, [
+      'state',
+      'children',
+      'marking',
+      'onPress',
+      'onLongPress',
+    ]);
   }
 
   render() {
@@ -54,23 +60,26 @@ class Day extends React.Component {
     let marking = this.props.marking || {};
     if (marking && marking.constructor === Array && marking.length) {
       marking = {
-        marking: true
+        marking: true,
       };
     }
-    const isDisabled = typeof marking.disabled !== 'undefined' ? marking.disabled : this.props.state === 'disabled';
+    const isDisabled =
+      typeof marking.disabled !== 'undefined'
+        ? marking.disabled
+        : this.props.state === 'disabled';
     let dot;
     if (marking.marked) {
       dotStyle.push(this.style.visibleDot);
       if (marking.dotColor) {
-        dotStyle.push({backgroundColor: marking.dotColor});
+        dotStyle.push({ backgroundColor: marking.dotColor });
       }
-      dot = (<View style={dotStyle}/>);
+      dot = <View style={dotStyle} />;
     }
 
     if (marking.selected) {
       containerStyle.push(this.style.selected);
       if (marking.selectedColor) {
-        containerStyle.push({backgroundColor: marking.selectedColor});
+        containerStyle.push({ backgroundColor: marking.selectedColor });
       }
       dotStyle.push(this.style.selectedDot);
       textStyle.push(this.style.selectedText);
@@ -89,7 +98,9 @@ class Day extends React.Component {
         activeOpacity={marking.activeOpacity}
         disabled={marking.disableTouchEvent}
       >
-        <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
+        <Text allowFontScaling={false} style={textStyle}>
+          {String(this.props.children)}
+        </Text>
         {dot}
       </TouchableOpacity>
     );
@@ -99,7 +110,7 @@ class Day extends React.Component {
 const STYLESHEET_ID = 'stylesheet.day.basic';
 
 function styleConstructor(theme = {}) {
-  const appStyle = {...defaultStyle, ...theme};
+  const appStyle = { ...defaultStyle, ...theme };
   return StyleSheet.create({
     base: {
       width: 32,
@@ -119,7 +130,7 @@ function styleConstructor(theme = {}) {
     },
     selected: {
       backgroundColor: appStyle.selectedDayBackgroundColor,
-      borderRadius: 16
+      borderRadius: 16,
     },
     today: {
       backgroundColor: appStyle.todayBackgroundColor,
@@ -147,7 +158,7 @@ function styleConstructor(theme = {}) {
     selectedDot: {
       backgroundColor: appStyle.selectedDotColor,
     },
-    ...(theme[STYLESHEET_ID] || {})
+    ...(theme[STYLESHEET_ID] || {}),
   });
 }
 

@@ -6,18 +6,16 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import {Agenda, Calendar, CalendarList} from 'react-native-general-calendars';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { CalendarList } from 'react-native-general-calendars';
 
 type Props = {};
-export default class App extends Component<Props> {
+export default class App extends React.Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <CalendarList
-          type="jalaali"
-        />
+        <CalendarList type="jalaali" />
       </View>
     );
   }

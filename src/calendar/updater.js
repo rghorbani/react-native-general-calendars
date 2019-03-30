@@ -9,22 +9,29 @@
 import { parseDate } from '../interface';
 
 export default function shouldComponentUpdate(nextProps, nextState) {
-  let shouldUpdate = (nextProps.selected || []).reduce((prev, next, i) => {
-    const currentSelected = (this.props.selected || [])[i];
-    if (!currentSelected || !next || parseDate(currentSelected).valueOf() !== parseDate(next).valueOf()) {
-      return {
-        update: true,
-        field: 'selected'
-      };
-    }
-    return prev;
-  }, {update: false});
+  let shouldUpdate = (nextProps.selected || []).reduce(
+    (prev, next, i) => {
+      const currentSelected = (this.props.selected || [])[i];
+      if (
+        !currentSelected ||
+        !next ||
+        parseDate(currentSelected).valueOf() !== parseDate(next).valueOf()
+      ) {
+        return {
+          update: true,
+          field: 'selected',
+        };
+      }
+      return prev;
+    },
+    { update: false },
+  );
 
   shouldUpdate = ['markedDates', 'hideExtraDays'].reduce((prev, next) => {
     if (!prev.update && nextProps[next] !== this.props[next]) {
       return {
         update: true,
-        field: next
+        field: next,
       };
     }
     return prev;
@@ -41,7 +48,7 @@ export default function shouldComponentUpdate(nextProps, nextState) {
       } else {
         return {
           update: true,
-          field: next
+          field: next,
         };
       }
     }
@@ -51,7 +58,7 @@ export default function shouldComponentUpdate(nextProps, nextState) {
   if (nextState.currentMonth !== this.state.currentMonth) {
     shouldUpdate = {
       update: true,
-      field: 'current'
+      field: 'current',
     };
   }
   //console.log(shouldUpdate.field, shouldUpdate.update);

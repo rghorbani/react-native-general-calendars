@@ -24,7 +24,7 @@ class Day extends React.Component {
     marking: PropTypes.any,
     onPress: PropTypes.func,
     onLongPress: PropTypes.func,
-    date: PropTypes.object
+    date: PropTypes.object,
   };
 
   constructor(props) {
@@ -43,18 +43,38 @@ class Day extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return shouldUpdate(this.props, nextProps, ['state', 'children', 'marking', 'onPress', 'onLongPress']);
+    return shouldUpdate(this.props, nextProps, [
+      'state',
+      'children',
+      'marking',
+      'onPress',
+      'onLongPress',
+    ]);
   }
 
   renderDots(marking) {
     const baseDotStyle = [this.style.dot, this.style.visibleDot];
-    if (marking.dots && Array.isArray(marking.dots) && marking.dots.length > 0) {
+    if (
+      marking.dots &&
+      Array.isArray(marking.dots) &&
+      marking.dots.length > 0
+    ) {
       // Filter out dots so that we we process only those items which have key and color property
-      const validDots = marking.dots.filter(d => (d && d.color));
+      const validDots = marking.dots.filter(d => d && d.color);
       return validDots.map((dot, index) => {
         return (
-          <View key={dot.key ? dot.key : index} style={[baseDotStyle,
-            { backgroundColor: marking.selected && dot.selectedDotColor ? dot.selectedDotColor : dot.color}]}/>
+          <View
+            key={dot.key ? dot.key : index}
+            style={[
+              baseDotStyle,
+              {
+                backgroundColor:
+                  marking.selected && dot.selectedDotColor
+                    ? dot.selectedDotColor
+                    : dot.color,
+              },
+            ]}
+          />
         );
       });
     }
@@ -72,9 +92,13 @@ class Day extends React.Component {
       containerStyle.push(this.style.selected);
       textStyle.push(this.style.selectedText);
       if (marking.selectedColor) {
-        containerStyle.push({backgroundColor: marking.selectedColor});
+        containerStyle.push({ backgroundColor: marking.selectedColor });
       }
-    } else if (typeof marking.disabled !== 'undefined' ? marking.disabled : this.props.state === 'disabled') {
+    } else if (
+      typeof marking.disabled !== 'undefined'
+        ? marking.disabled
+        : this.props.state === 'disabled'
+    ) {
       textStyle.push(this.style.disabledText);
     } else if (this.props.state === 'today') {
       containerStyle.push(this.style.today);
@@ -86,8 +110,10 @@ class Day extends React.Component {
         onPress={this.onDayPress}
         onLongPress={this.onDayLongPress}
       >
-        <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
-        <View style={{flexDirection: 'row'}}>{dot}</View>
+        <Text allowFontScaling={false} style={textStyle}>
+          {String(this.props.children)}
+        </Text>
+        <View style={{ flexDirection: 'row' }}>{dot}</View>
       </TouchableOpacity>
     );
   }
@@ -96,12 +122,12 @@ class Day extends React.Component {
 const STYLESHEET_ID = 'stylesheet.day.multiDot';
 
 function styleConstructor(theme = {}) {
-  const appStyle = {...defaultStyle, ...theme};
+  const appStyle = { ...defaultStyle, ...theme };
   return StyleSheet.create({
     base: {
       width: 32,
       height: 32,
-      alignItems: 'center'
+      alignItems: 'center',
     },
     text: {
       marginTop: 4,
@@ -109,26 +135,26 @@ function styleConstructor(theme = {}) {
       fontFamily: appStyle.textDayFontFamily,
       fontWeight: '300',
       color: appStyle.dayTextColor,
-      backgroundColor: 'rgba(255, 255, 255, 0)'
+      backgroundColor: 'rgba(255, 255, 255, 0)',
     },
     alignedText: {
-      marginTop: Platform.OS === 'android' ? 4 : 6
+      marginTop: Platform.OS === 'android' ? 4 : 6,
     },
     selected: {
       backgroundColor: appStyle.selectedDayBackgroundColor,
-      borderRadius: 16
+      borderRadius: 16,
     },
     today: {
       backgroundColor: appStyle.todayBackgroundColor,
     },
     todayText: {
-      color: appStyle.todayTextColor
+      color: appStyle.todayTextColor,
     },
     selectedText: {
-      color: appStyle.selectedDayTextColor
+      color: appStyle.selectedDayTextColor,
     },
     disabledText: {
-      color: appStyle.textDisabledColor
+      color: appStyle.textDisabledColor,
     },
     dot: {
       width: 4,
@@ -137,16 +163,16 @@ function styleConstructor(theme = {}) {
       marginLeft: 1,
       marginRight: 1,
       borderRadius: 2,
-      opacity: 0
+      opacity: 0,
     },
     visibleDot: {
       opacity: 1,
-      backgroundColor: appStyle.dotColor
+      backgroundColor: appStyle.dotColor,
     },
     selectedDot: {
-      backgroundColor: appStyle.selectedDotColor
+      backgroundColor: appStyle.selectedDotColor,
     },
-    ...(theme[STYLESHEET_ID] || {})
+    ...(theme[STYLESHEET_ID] || {}),
   });
 }
 

@@ -23,29 +23,39 @@ function xdateToData(moment) {
     month: moment.jMonth() + 1,
     day: moment.jDate(),
     timestamp: jMoment.utc(dateString, 'jYYYY-jMM-jDD').valueOf(),
-    dateString: dateString
+    dateString: dateString,
   };
 }
 
 function parseDate(d) {
   if (!d) {
     return;
-  } else if (d.timestamp) { // conventional data timestamp
+  } else if (d.timestamp) {
+    // conventional data timestamp
     return jMoment.utc(d.timestamp);
-  } else if (d instanceof Moment) { // moment
+  } else if (d instanceof Moment) {
+    // moment
     return jMoment.utc(d.format('YYYY-MM-DD'));
-  } else if (d.getTime) { // javascript date
-    const dateString = d.getFullYear() + '-' + padNumber((d.getMonth() + 1)) + '-' + padNumber(d.getDate());
+  } else if (d.getTime) {
+    // javascript date
+    const dateString =
+      d.getFullYear() +
+      '-' +
+      padNumber(d.getMonth() + 1) +
+      '-' +
+      padNumber(d.getDate());
     return jMoment.utc(dateString);
   } else if (d.year) {
-    const dateString = d.year + '-' + padNumber(d.month) + '-' + padNumber(d.day);
+    const dateString =
+      d.year + '-' + padNumber(d.month) + '-' + padNumber(d.day);
     return jMoment.utc(dateString);
-  } else if (d) { // timestamp number or date formatted as string TODO
+  } else if (d) {
+    // timestamp number or date formatted as string TODO
     return jMoment.utc(d);
   }
 }
 
 module.exports = {
   xdateToData,
-  parseDate
+  parseDate,
 };

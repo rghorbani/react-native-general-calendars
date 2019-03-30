@@ -10,16 +10,22 @@ const Moment = require('moment');
 const jMoment = require('moment-jalaali');
 
 function sameMonth(a, b) {
-  return a instanceof Moment && b instanceof Moment &&
+  return (
+    a instanceof Moment &&
+    b instanceof Moment &&
     a.jYear() === b.jYear() &&
-    a.jMonth() === b.jMonth();
+    a.jMonth() === b.jMonth()
+  );
 }
 
 function sameDate(a, b) {
-  return a instanceof Moment && b instanceof Moment &&
+  return (
+    a instanceof Moment &&
+    b instanceof Moment &&
     a.year() === b.year() &&
     a.month() === b.month() &&
-    a.date() === b.date();
+    a.date() === b.date()
+  );
 }
 
 function isGTE(a, b) {
@@ -32,20 +38,25 @@ function isLTE(a, b) {
 
 function fromTo(a, b) {
   const days = [];
-  let from = +a, to = +b;
+  let from = +a,
+    to = +b;
   for (; from <= to; from = new jMoment(from).add(1, 'days').valueOf()) {
-    days.push((new jMoment(from)));
+    days.push(new jMoment(from));
   }
   return days;
 }
 
 function month(xd) {
-  const year = xd.jYear(), month = xd.jMonth();
+  const year = xd.jYear(),
+    month = xd.jMonth();
   const days = jMoment.jDaysInMonth(year, month);
 
   const str = year + '-' + (month + 1);
   const firstDay = jMoment.utc(str + '-1T00:00:00', 'jYYYY-jM-jDTHH:mm:ss');
-  const lastDay = jMoment.utc(str + '-' + days + 'T00:00:00', 'jYYYY-jM-jDTHH:mm:ss');
+  const lastDay = jMoment.utc(
+    str + '-' + days + 'T00:00:00',
+    'jYYYY-jM-jDTHH:mm:ss',
+  );
 
   return fromTo(firstDay, lastDay);
 }
@@ -54,13 +65,15 @@ function weekDayNames(firstDayOfWeek = 0) {
   let weekDaysNames = jMoment.weekdaysShort();
   const dayShift = (firstDayOfWeek - 1) % 7;
   if (dayShift) {
-    weekDaysNames = weekDaysNames.slice(dayShift).concat(weekDaysNames.slice(0, dayShift));
+    weekDaysNames = weekDaysNames
+      .slice(dayShift)
+      .concat(weekDaysNames.slice(0, dayShift));
   }
   return weekDaysNames;
 }
 
 function dayOfWeek(xd) {
-  return ((xd.day() + 1) % 7);
+  return (xd.day() + 1) % 7;
 }
 
 function page(xd, firstDayOfWeek) {
@@ -68,9 +81,10 @@ function page(xd, firstDayOfWeek) {
   // for (let i = 0; i < days.length; i++) {
   //   console.log(days[i].format('jYYYY-jMM-jDD'));
   // }
-  let before = [], after = [];
+  let before = [],
+    after = [];
 
-  const fdow = ((7 + firstDayOfWeek) % 7) || 7;
+  const fdow = (7 + firstDayOfWeek) % 7 || 7;
   const ldow = (fdow + 6) % 7;
 
   firstDayOfWeek = firstDayOfWeek || 0;
@@ -114,5 +128,5 @@ module.exports = {
   page,
   fromTo,
   isLTE,
-  isGTE
+  isGTE,
 };

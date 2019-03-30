@@ -24,22 +24,18 @@ class DatePickerModal extends BaseComponent {
   }
 
   render() {
-    const {visible, enableModalBlur, topBarProps, children} = this.props;
+    const { visible, enableModalBlur, topBarProps, children } = this.props;
     return (
       <Modal
         animationType={'slide'}
-        transparent={(Constants.isIOS && enableModalBlur)}
+        transparent={Constants.isIOS && enableModalBlur}
         enableModalBlur={Constants.isIOS && enableModalBlur}
         visible={visible}
         onRequestClose={topBarProps.onCancel}
       >
-        <Modal.TopBar {...topBarProps}/>
-        <ScrollView
-          keyboardShouldPersistTaps="always"
-        >
-          <View style={this.styles.modalBody}>
-            {children}
-          </View>
+        <Modal.TopBar {...topBarProps} />
+        <ScrollView keyboardShouldPersistTaps="always">
+          <View style={this.styles.modalBody}>{children}</View>
         </ScrollView>
       </Modal>
     );

@@ -7,7 +7,7 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import Calendar from '../calendar';
 import defaultStyle from '../style';
@@ -26,9 +26,15 @@ class CalendarListItem extends React.Component {
   shouldComponentUpdate(nextProps) {
     const r1 = this.props.item;
     const r2 = nextProps.item;
-    return (typeof r1 !== typeof r2 && typeof r1 === 'string' && r1.toString() !== r2.format('YYYY MM'))
-    || (typeof r1 !== typeof r2 && typeof r2 === 'string' && r2.toString() !== r1.format('YYYY MM'))
-    || !!(r2.propbump && r2.propbump !== r1.propbump);
+    return (
+      (typeof r1 !== typeof r2 &&
+        typeof r1 === 'string' &&
+        r1.toString() !== r2.format('YYYY MM')) ||
+      (typeof r1 !== typeof r2 &&
+        typeof r2 === 'string' &&
+        r2.toString() !== r1.format('YYYY MM')) ||
+      !!(r2.propbump && r2.propbump !== r1.propbump)
+    );
     // return r1.format('YYYY MM') !== r2.format('YYYY MM') || !!(r2.propbump && r2.propbump !== r1.propbump);
   }
 
@@ -40,7 +46,7 @@ class CalendarListItem extends React.Component {
           type={this.props.type}
           rtl={this.props.rtl}
           theme={this.props.theme}
-          style={[{height: this.props.calendarHeight}, this.style.calendar]}
+          style={[{ height: this.props.calendarHeight }, this.style.calendar]}
           current={row}
           hideArrows={this.props.hideArrows}
           hideExtraDays={this.props.hideExtraDays}
@@ -58,12 +64,20 @@ class CalendarListItem extends React.Component {
           dayComponent={this.props.dayComponent}
           disabledByDefault={this.props.disabledByDefault}
           showWeekNumbers={this.props.showWeekNumbers}
-        />);
+        />
+      );
     } else {
       const text = row.toString();
       return (
-        <View style={[{height: this.props.calendarHeight}, this.style.placeholder]}>
-          <Text allowFontScaling={false} style={this.style.placeholderText}>{text}</Text>
+        <View
+          style={[
+            { height: this.props.calendarHeight },
+            this.style.placeholder,
+          ]}
+        >
+          <Text allowFontScaling={false} style={this.style.placeholderText}>
+            {text}
+          </Text>
         </View>
       );
     }
@@ -73,7 +87,7 @@ class CalendarListItem extends React.Component {
 const STYLESHEET_ID = 'stylesheet.calendar-list.main';
 
 function styleConstructor(theme = {}) {
-  const appStyle = {...defaultStyle, ...theme};
+  const appStyle = { ...defaultStyle, ...theme };
   return StyleSheet.create({
     placeholder: {
       backgroundColor: appStyle.calendarBackground,
@@ -89,7 +103,7 @@ function styleConstructor(theme = {}) {
       paddingLeft: 15,
       paddingRight: 15,
     },
-    ...(theme[STYLESHEET_ID] || {})
+    ...(theme[STYLESHEET_ID] || {}),
   });
 }
 

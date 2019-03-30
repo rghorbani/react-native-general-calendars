@@ -9,12 +9,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  View
-} from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 
 import Reservation from './reservation';
 import dateutils from '../../dateutils';
@@ -56,7 +51,7 @@ class ReservationsList extends React.Component {
     super(props);
     this.styles = styleConstructor(props.theme);
     this.state = {
-      reservations: []
+      reservations: [],
     };
     this.heights = [];
     this.selectedDay = this.props.selectedDay;
@@ -69,19 +64,22 @@ class ReservationsList extends React.Component {
 
   updateDataSource(reservations) {
     this.setState({
-      reservations
+      reservations,
     });
   }
 
   updateReservations(props) {
     const reservations = this.getReservations(props);
-    if (this.list && !dateutils.sameDate(props.type, props.selectedDay, this.selectedDay)) {
+    if (
+      this.list &&
+      !dateutils.sameDate(props.type, props.selectedDay, this.selectedDay)
+    ) {
       let scrollPosition = 0;
       for (let i = 0; i < reservations.scrollPosition; i++) {
         scrollPosition += this.heights[i] || 0;
       }
       this.scrollOver = false;
-      this.list.scrollToOffset({offset: scrollPosition, animated: true});
+      this.list.scrollToOffset({ offset: scrollPosition, animated: true });
     }
     this.selectedDay = props.selectedDay;
     this.updateDataSource(reservations.reservations);
@@ -89,11 +87,14 @@ class ReservationsList extends React.Component {
 
   UNSAFE_componentWillReceiveProps(props) {
     if (!dateutils.sameDate(props.type, props.topDay, this.props.topDay)) {
-      this.setState({
-        reservations: []
-      }, () => {
-        this.updateReservations(props);
-      });
+      this.setState(
+        {
+          reservations: [],
+        },
+        () => {
+          this.updateReservations(props);
+        },
+      );
     } else {
       this.updateReservations(props);
     }
@@ -124,7 +125,7 @@ class ReservationsList extends React.Component {
     this.heights[ind] = event.nativeEvent.layout.height;
   }
 
-  renderRow({item, index}) {
+  renderRow({ item, index }) {
     return (
       <View onLayout={this.onRowLayoutChange.bind(this, index)}>
         <Reservation
@@ -148,14 +149,16 @@ class ReservationsList extends React.Component {
         return {
           reservation,
           date: i ? false : day,
-          day
+          day,
         };
       });
     } else if (res) {
-      return [{
-        date: iterator.clone(),
-        day
-      }];
+      return [
+        {
+          date: iterator.clone(),
+          day,
+        },
+      ];
     } else {
       return false;
     }
@@ -167,7 +170,7 @@ class ReservationsList extends React.Component {
 
   getReservations(props) {
     if (!props.reservations || !props.selectedDay) {
-      return {reservations: [], scrollPosition: 0};
+      return { reservations: [], scrollPosition: 0 };
     }
     let reservations = [];
     if (this.state.reservations && this.state.reservations.length) {
@@ -193,19 +196,22 @@ class ReservationsList extends React.Component {
       iterator.add(1, 'days');
     }
 
-    return {reservations, scrollPosition};
+    return { reservations, scrollPosition };
   }
 
   render() {
-    if (!this.props.reservations || !this.props.reservations[this.props.selectedDay.format('YYYY-MM-DD')]) {
+    if (
+      !this.props.reservations ||
+      !this.props.reservations[this.props.selectedDay.format('YYYY-MM-DD')]
+    ) {
       if (this.props.renderEmptyData) {
         return this.props.renderEmptyData();
       }
-      return (<ActivityIndicator style={{marginTop: 80}} />);
+      return <ActivityIndicator style={{ marginTop: 80 }} />;
     }
     return (
       <FlatList
-        ref={(c) => this.list = c}
+        ref={c => (this.list = c)}
         style={this.props.style}
         contentContainerStyle={this.styles.content}
         renderItem={this.renderRow.bind(this)}
@@ -213,7 +219,10 @@ class ReservationsList extends React.Component {
         onScroll={this.onScroll.bind(this)}
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={200}
-        onMoveShouldSetResponderCapture={() => {this.onListTouch(); return false;}}
+        onMoveShouldSetResponderCapture={() => {
+          this.onListTouch();
+          return false;
+        }}
         keyExtractor={(item, index) => String(index)}
         refreshControl={this.props.refreshControl}
         refreshing={this.props.refreshing}
@@ -226,33 +235,33 @@ class ReservationsList extends React.Component {
 const STYLESHEET_ID = 'stylesheet.agenda.list';
 
 function styleConstructor(theme = {}) {
-  const appStyle = {...defaultStyle, ...theme};
-  return  StyleSheet.create({
+  const appStyle = { ...defaultStyle, ...theme };
+  return StyleSheet.create({
     container: {
-      flexDirection: 'row'
+      flexDirection: 'row',
     },
     dayNum: {
       fontSize: 28,
       fontWeight: '200',
-      color: appStyle.agendaDayNumColor
+      color: appStyle.agendaDayNumColor,
     },
     dayText: {
       fontSize: 14,
       fontWeight: '300',
       color: appStyle.agendaDayTextColor,
       marginTop: -5,
-      backgroundColor: 'rgba(0,0,0,0)'
+      backgroundColor: 'rgba(0,0,0,0)',
     },
     day: {
       width: 63,
       alignItems: 'center',
       justifyContent: 'flex-start',
-      marginTop: 32
+      marginTop: 32,
     },
     today: {
-      color: appStyle.agendaTodayColor
+      color: appStyle.agendaTodayColor,
     },
-    ...(theme[STYLESHEET_ID] || {})
+    ...(theme[STYLESHEET_ID] || {}),
   });
 }
 

@@ -72,7 +72,11 @@ class CalendarList extends React.Component {
     } else {
       date = parseDate(this.props.type, props.current) || Moment.utc();
     }
-    for (let i = 0; i <= this.props.pastScrollRange + this.props.futureScrollRange; i++) {
+    for (
+      let i = 0;
+      i <= this.props.pastScrollRange + this.props.futureScrollRange;
+      i++
+    ) {
       let rangeDate;
       let rangeDateStr;
       if (props.type === 'jalaali') {
@@ -87,7 +91,11 @@ class CalendarList extends React.Component {
        * This selects range around current shown month [-0, +2] or [-1, +1] month for detail calendar rendering.
        * If `this.props.pastScrollRange` is `undefined` it's equal to `false` or 0 in next condition.
        */
-      if (this.props.pastScrollRange - 1 <= i && i <= this.props.pastScrollRange + 1 || !this.props.pastScrollRange && i <= this.props.pastScrollRange + 2) {
+      if (
+        (this.props.pastScrollRange - 1 <= i &&
+          i <= this.props.pastScrollRange + 1) ||
+        (!this.props.pastScrollRange && i <= this.props.pastScrollRange + 2)
+      ) {
         rows.push(rangeDate);
       } else {
         rows.push(rangeDateStr);
@@ -116,12 +124,25 @@ class CalendarList extends React.Component {
     const day = parseDate(this.props.type, d);
     let diffMonths;
     if (this.props.type === 'jalaali') {
-      diffMonths = Math.round(this.state.openDate.clone().jDate(1).diff(day.clone().jDate(1), 'jMonths'));
+      diffMonths = Math.round(
+        this.state.openDate
+          .clone()
+          .jDate(1)
+          .diff(day.clone().jDate(1), 'jMonths'),
+      );
     } else {
-      diffMonths = Math.round(this.state.openDate.clone().date(1).diff(day.clone().date(1), 'months'));
+      diffMonths = Math.round(
+        this.state.openDate
+          .clone()
+          .date(1)
+          .diff(day.clone().date(1), 'months'),
+      );
     }
-    const size = this.props.horizontal ? this.props.calendarWidth : this.props.calendarHeight;
-    let scrollAmount = (size * this.props.pastScrollRange) + (diffMonths * size) + (offset || 0);
+    const size = this.props.horizontal
+      ? this.props.calendarWidth
+      : this.props.calendarHeight;
+    let scrollAmount =
+      size * this.props.pastScrollRange + diffMonths * size + (offset || 0);
     if (!this.props.horizontal) {
       let week = 0;
       const days = dateutils.page(this.props.type, day, this.props.firstDay);
@@ -133,7 +154,7 @@ class CalendarList extends React.Component {
         }
       }
     }
-    this.listView.scrollToOffset({offset: scrollAmount, animated});
+    this.listView.scrollToOffset({ offset: scrollAmount, animated });
   }
 
   scrollToMonth(m) {
@@ -141,15 +162,27 @@ class CalendarList extends React.Component {
     const scrollTo = month || this.state.openDate;
     let diffMonths;
     if (this.props.type === 'jalaali') {
-      diffMonths = Math.round(this.state.openDate.clone().jDate(1).diff(scrollTo.clone().jDate(1), 'jMonths'));
+      diffMonths = Math.round(
+        this.state.openDate
+          .clone()
+          .jDate(1)
+          .diff(scrollTo.clone().jDate(1), 'jMonths'),
+      );
     } else {
-      diffMonths = Math.round(this.state.openDate.clone().date(1).diff(scrollTo.clone().date(1), 'months'));
+      diffMonths = Math.round(
+        this.state.openDate
+          .clone()
+          .date(1)
+          .diff(scrollTo.clone().date(1), 'months'),
+      );
     }
-    const size = this.props.horizontal ? this.props.calendarWidth : this.props.calendarHeight;
-    const scrollAmount = (size * this.props.pastScrollRange) + (diffMonths * size);
+    const size = this.props.horizontal
+      ? this.props.calendarWidth
+      : this.props.calendarHeight;
+    const scrollAmount = size * this.props.pastScrollRange + diffMonths * size;
     //console.log(month, this.state.openDate);
     //console.log(scrollAmount, diffMonths);
-    this.listView.scrollToOffset({offset: scrollAmount, animated: false});
+    this.listView.scrollToOffset({ offset: scrollAmount, animated: false });
   }
 
   UNSAFE_componentWillReceiveProps(props) {
@@ -170,11 +203,11 @@ class CalendarList extends React.Component {
       newrows.push(val);
     }
     this.setState({
-      rows: newrows
+      rows: newrows,
     });
   }
 
-  onViewableItemsChanged({viewableItems}) {
+  onViewableItemsChanged({ viewableItems }) {
     function rowIsCloseToViewable(index, distance) {
       for (let i = 0; i < viewableItems.length; i++) {
         if (Math.abs(index - parseInt(viewableItems[i].index)) <= distance) {
@@ -192,9 +225,13 @@ class CalendarList extends React.Component {
       const rowShouldBeRendered = rowIsCloseToViewable(i, 1);
       if (rowShouldBeRendered && !rowclone[i].getTime) {
         if (this.props.type === 'jalaali') {
-          val = this.state.openDate.clone().add(i - this.props.pastScrollRange, 'jMonths');
+          val = this.state.openDate
+            .clone()
+            .add(i - this.props.pastScrollRange, 'jMonths');
         } else {
-          val = this.state.openDate.clone().add(i - this.props.pastScrollRange, 'months');
+          val = this.state.openDate
+            .clone()
+            .add(i - this.props.pastScrollRange, 'months');
         }
       } else if (!rowShouldBeRendered) {
         val = this.state.texts[i];
@@ -208,24 +245,44 @@ class CalendarList extends React.Component {
       this.props.onVisibleMonthsChange(visibleMonths);
     }
     this.setState({
-      rows: newrows
+      rows: newrows,
     });
   }
 
-  renderCalendar({item}) {
-    return (<CalendarListItem item={item} calendarHeight={this.props.calendarHeight} calendarWidth={this.props.horizontal ? this.props.calendarWidth : undefined} {...this.props} />);
+  renderCalendar({ item }) {
+    return (
+      <CalendarListItem
+        item={item}
+        calendarHeight={this.props.calendarHeight}
+        calendarWidth={
+          this.props.horizontal ? this.props.calendarWidth : undefined
+        }
+        {...this.props}
+      />
+    );
   }
 
   getItemLayout(data, index) {
-    return {length: this.props.horizontal ? this.props.calendarWidth : this.props.calendarHeight, offset: (this.props.horizontal ? this.props.calendarWidth : this.props.calendarHeight) * index, index};
+    return {
+      length: this.props.horizontal
+        ? this.props.calendarWidth
+        : this.props.calendarHeight,
+      offset:
+        (this.props.horizontal
+          ? this.props.calendarWidth
+          : this.props.calendarHeight) * index,
+      index,
+    };
   }
 
   getMonthIndex(month) {
     let diffMonths;
     if (this.props.type === 'jalaali') {
-      diffMonths = this.state.openDate.diff(month, 'jMonths') + this.props.pastScrollRange;
+      diffMonths =
+        this.state.openDate.diff(month, 'jMonths') + this.props.pastScrollRange;
     } else {
-      diffMonths = this.state.openDate.diff(month, 'months') + this.props.pastScrollRange;
+      diffMonths =
+        this.state.openDate.diff(month, 'months') + this.props.pastScrollRange;
     }
     return diffMonths;
   }
@@ -233,10 +290,12 @@ class CalendarList extends React.Component {
   render() {
     return (
       <FlatList
-        ref={(c) => this.listView = c}
+        ref={c => (this.listView = c)}
         onLayout={this.onLayout}
         style={[this.style.container, this.props.style]}
-        initialListSize={this.props.pastScrollRange + this.props.futureScrollRange + 1}
+        initialListSize={
+          this.props.pastScrollRange + this.props.futureScrollRange + 1
+        }
         data={this.state.rows}
         removeClippedSubviews={this.props.removeClippedSubviews}
         pageSize={1}
@@ -248,7 +307,9 @@ class CalendarList extends React.Component {
         showsHorizontalScrollIndicator={this.props.showScrollIndicator}
         scrollEnabled={this.props.scrollEnabled}
         keyExtractor={(item, index) => String(index)}
-        initialScrollIndex={this.state.openDate ? this.getMonthIndex(this.state.openDate) : false}
+        initialScrollIndex={
+          this.state.openDate ? this.getMonthIndex(this.state.openDate) : false
+        }
         getItemLayout={this.getItemLayout}
         scrollsToTop={this.props.scrollsToTop}
       />
@@ -259,12 +320,12 @@ class CalendarList extends React.Component {
 const STYLESHEET_ID = 'stylesheet.calendar-list.main';
 
 function styleConstructor(theme = {}) {
-  const appStyle = {...defaultStyle, ...theme};
+  const appStyle = { ...defaultStyle, ...theme };
   return StyleSheet.create({
     container: {
       backgroundColor: appStyle.calendarBackground,
     },
-    ...(theme[STYLESHEET_ID] || {})
+    ...(theme[STYLESHEET_ID] || {}),
   });
 }
 
