@@ -54,3 +54,4 @@ fastlane/screenshots
 
 # Custom
 package-lock.json
+yarn.lock
