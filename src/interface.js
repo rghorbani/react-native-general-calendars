@@ -27,5 +27,5 @@ module.exports = {
   gregorian,
   jalaali,
   xdateToData,
-  parseDate
+  parseDate,
 };

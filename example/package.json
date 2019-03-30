@@ -1,6 +1,6 @@
 {
   "name": "example",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "clear": "node node_modules/react-native/local-cli/cli.js start --reset-cache",
@@ -12,7 +12,7 @@
   "dependencies": {
     "react": "16.8.3",
     "react-native": "0.59.2",
-    "react-native-general-calendars": "file:..",
+    "react-native-general-calendars": "link:..",
     "react-native-gesture-handler": "^1.1.0",
     "react-navigation": "^3.5.1"
   },
