@@ -10,6 +10,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const Moment = require('moment');
 const jMoment = require('moment-jalaali');
+const persianJs = require('persianjs');
 const { StyleSheet, View, ViewPropTypes } = require('react-native');
 
 const Day = require('./day/basic');
@@ -32,6 +33,8 @@ class Calendar extends React.Component {
   static propTypes = {
     // Calendar type
     type: PropTypes.oneOf(['gregorian', 'jalaali']),
+    // Calendar day number transform
+    persianDigits: PropTypes.bool,
     // is Calendar rtl
     rtl: PropTypes.bool,
     // Specify theme properties to override specific styles for calendar parts. Default = {}
@@ -236,6 +239,10 @@ class Calendar extends React.Component {
     let date;
     if (this.props.type === 'jalaali') {
       date = day.jDate();
+
+      if (this.props.persianDigits) {
+        date = persianJs(date).englishNumber().toString();
+      }
     } else {
       date = day.date();
     }
