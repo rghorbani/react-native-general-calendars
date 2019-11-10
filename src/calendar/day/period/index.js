@@ -9,8 +9,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const isEqual = require('lodash.isequal');
-const { StyleSheet, TouchableWithoutFeedback } = require('react-native');
-const { Text, View } = require('react-native-common');
+const { StyleSheet, Text, TouchableWithoutFeedback, View } = require('react-native');
 
 const { shouldUpdate } = require('../../../component-updater');
 const defaultStyle = require('../../../style');

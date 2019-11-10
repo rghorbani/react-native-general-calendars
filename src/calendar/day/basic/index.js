@@ -8,8 +8,7 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Platform, StyleSheet } = require('react-native');
-const { Text, TouchableOpacity, View } = require('react-native-common');
+const { Platform, StyleSheet, Text, TouchableOpacity, View } = require('react-native');
 
 const { shouldUpdate } = require('../../../component-updater');
 const defaultStyle = require('../../../style');

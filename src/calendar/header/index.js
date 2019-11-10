@@ -9,8 +9,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
-import { ActivityIndicator, Platform, Image, StyleSheet } from 'react-native';
-import { Text, TouchableOpacity, View } from 'react-native-common';
+import { ActivityIndicator, Platform, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import defaultStyle from '../../style';
 import { weekDayNames } from '../../dateutils';

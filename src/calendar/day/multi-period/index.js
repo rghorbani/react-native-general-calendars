@@ -11,10 +11,10 @@ const PropTypes = require('prop-types');
 const {
   Platform,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } = require('react-native');
-const { Text } = require('react-native-common');
 
 const { shouldUpdate } = require('../../../component-updater');
 const defaultStyle = require('../../../style');
