@@ -54,18 +54,18 @@
     "moment": "^2.24.0",
     "moment-jalaali": "^0.8.3",
     "prop-types": "^15.7.2",
-    "react-native-common": "^3.0.1"
+    "react-native-common": "^3.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "^24.9.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-native": "^4.0.1",
     "eslint": "^6.0.0",
     "eslint-config-kajoo": "^1.5.0",
-    "husky": "^1.3.1",
-    "jest": "^23.6.0",
-    "lint-staged": "^8.1.5",
+    "husky": "^3.0.9",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.4.2",
     "react": "16.6.3",
     "react-native": "0.57.8"
   },
